@@ -19,12 +19,18 @@ class testingTest extends DuskTestCase
      */
     public function testExample()
     {
-        $user = User::find(1);
 
         $this->browse(function ($browser) {
+
+            $something = '/1';
+            $user = User::find(1);
+
+
             $browser->loginAs($user)
-                    ->visit('/')
-                    ->assertSee('Laravel');
+                    ->visit('/{{$user->id}}')
+                    ->assertSee('Laravel')
+                    ->visit($something)
+                    ->assertSee('Maa');
         });
     }
 

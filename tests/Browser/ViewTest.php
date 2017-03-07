@@ -17,7 +17,7 @@ class ViewTest extends DuskTestCase
         $this->browse(function ($browser) {
             $browser->visit('/')
                     ->assertSee('HipsterGram')
-                    ->assertSee('Log In')
+                    ->assertSee('Login')
                     ->assertTitle('HipsterGram')
                     ->assertPathIs('/');
         });
@@ -31,7 +31,7 @@ class ViewTest extends DuskTestCase
     {
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                    ->assertSee('Log in')
+                    ->assertSee('Login')
                     ->assertSee('Register')
                     ->assertVisible('Email')
                     ->assertVisible('Password')

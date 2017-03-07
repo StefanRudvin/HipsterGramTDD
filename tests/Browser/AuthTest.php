@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use Tests\DuskTestCase;
+use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AuthTest extends DuskTestCase
@@ -24,8 +25,8 @@ class AuthTest extends DuskTestCase
                     ->type('password', 'secret')
                     ->press('Login')
                     ->assertPathIs('/home')
-                    ->assertSee('You have successfully logged in')
-                    ->assertSee('Logout');
+                    ->assertSee('You are logged in!')
+                    ->assertSee($user->name);
         });
     }
 
@@ -35,18 +36,15 @@ class AuthTest extends DuskTestCase
      */
     public function register()
     {
-        $user = factory(User::class)->create([
-            'email' => 'taylor@laravel.com',
-        ]);
-
-        $this->browse(function ($browser) use ($user) {
+        $this->browse(function ($browser) {
             $browser->visit('/register')
-                    ->type('name', $user->name)
-                    ->type('email', $user->email)
+                    ->type('name', 'hammas')
+                    ->type('email', 'hammas@hammas.com')
                     ->type('password', 'secret')
+                    ->type('password_confirmation', 'secret')
                     ->press('Register')
                     ->assertPathIs('/home')
-                    ->assertSee('You have registered successfully');
+                    ->assertSee('You are logged in!');
         });
     }
 
@@ -59,8 +57,8 @@ class AuthTest extends DuskTestCase
         $this->browse(function ($first) {
             $first->loginAs(User::find(1))
                   ->visit('/home')
-                  ->press('Logout')
-                  ->assertSee('You have successfully logged out.');
+                  ->visit('/logout')
+                  ->assertSee('Laravel');
         });
     }
 }
