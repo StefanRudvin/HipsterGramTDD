@@ -3,8 +3,9 @@
 namespace Tests\Browser;
 
 use Tests\DuskTestCase;
+use App\User;
+use App\Post;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\Browser\Pages\Post;
 
 class PostTest extends DuskTestCase
 {
@@ -19,7 +20,7 @@ class PostTest extends DuskTestCase
         $this->browse(function ($browser) {
 
             $browser->loginAs(User::find(1))
-                    ->visit('/new')
+                    ->visit('/post/new')
                     ->assertSee('Create')
                     ->type('title', 'The post Yo')
                     ->type('content', 'The content yo.')
@@ -33,21 +34,28 @@ class PostTest extends DuskTestCase
     /**
      * @test
      * @group Post
+     @group daa
      */
     public function it_can_edit_own_post()
     {
-        $this->browse(function ($browser) {
-            $user = User::find(1);
-            $post = createPost(['user_id' => $user->id, 'title' => 'factoryPost']);
+        $user = User::find(4);
+        
+        $this->browse(function ($browser) use ($user) {
+            $post = $user->posts()->first();
             $browser->loginAs($user)
-                    ->goToPost()
+                    ->visit('posts/'.$post->id)
+                    ->clickLink('Edit')
                     ->type('title', 'This post has been edited')
-                    ->press('Post')
+                    ->press('Update Post')
                     ->assertSee('Edit successful.')
                     ->assertSee('This post has been edited');
         });
     }
 
+    /**
+     * @test
+     * @group Post
+     */
     public function it_can_delete_own_post()
     {
         $this->browse(function ($browser) {
@@ -61,19 +69,28 @@ class PostTest extends DuskTestCase
         });
     }
 
+    /**
+     * @test
+     * @group Post
+     */
     public function it_cannot_edit_someone_elses_post()
     {
-        $this->browse(function ($browser) {
-            $user = User::find(1);
-            $post = createPost(['user_id' => 2, 'title' => 'factoryPost']);
+        $user = User::find(4);
+        
+        $this->browse(function ($browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/{{ $user->id }}/posts/ {{ $post->id }} ')
-                    ->assertSee('factoryPost')
-                    ->assertNotSee('Edit');
+                    ->visit('posts/1')
+                    ->clickLink('Edit')
+                    ->assertNotSee('Update Post')
+                    ->assertSee('Not allowed');
         });
     }
 
-        public function it_cannot_delete_someone_elses_post()
+    /**
+     * @test
+     * @group Post
+     */
+    public function it_cannot_delete_someone_elses_post()
     {
         $this->browse(function ($browser) {
             $user = User::find(1);

@@ -32,4 +32,5 @@ abstract class DuskTestCase extends BaseTestCase
             'http://localhost:9515', DesiredCapabilities::chrome()
         );
     }
+
 }
