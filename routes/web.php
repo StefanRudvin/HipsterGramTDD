@@ -13,6 +13,9 @@
 Route::get('/', 'HomeController@welcome');
 Route::get('/home', 'HomeController@index');
 
+Route::get('/test', 'PostsController@test');
+Route::post('/avatars', 'PostsController@upload');
+
 Route::get('/user/{user}', 'UsersController@show');
 Route::get('/admin', 'UsersController@admin');
 

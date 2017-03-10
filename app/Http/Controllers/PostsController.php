@@ -23,7 +23,29 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('owner', ['only' => ['edit']]);
+        $this->middleware('can:update,post', ['only' => ['edit', 'update']]);
+        $this->middleware('can:delete,post', ['only' => ['destroy']]);
+    }
+
+    public function test()
+    {
+        // $img = Image::make('testimg.jpg');
+        // #$img = "Foo";
+        // return view('imgtest', compact('img'));
+        return view('imgtest');
+
+        #$img = Image::canvas(800, 600, '#ff0000');
+        #$img = Image::make('public/testImg.jpg')->resize(300, 200);
+        #$img = Image::make('public/testImg.jpg');
+
+        #return $img->response();
+    }
+
+    public function upload()
+    {
+        request()->file('avatar')->store('avatars');
+
+        return back();
     }
 
     public function index()
