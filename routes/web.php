@@ -17,6 +17,7 @@ Route::get('/test', 'PostsController@test');
 Route::post('/avatars', 'PostsController@upload');
 
 Route::get('/user/{user}', 'UsersController@show');
+Route::post('/user/{user}', 'UsersController@updateAvatar');
 Route::get('/admin', 'UsersController@admin');
 
 Route::get('/denied', 'HomeController@denied');

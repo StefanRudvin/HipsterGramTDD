@@ -12,6 +12,8 @@ use App\Comment;
 
 use Carbon\Carbon;
 
+use Image;
+
 use App\Http\Middleware\Owner;
 use App\Http\Middleware;
 
@@ -25,27 +27,6 @@ class PostsController extends Controller
         $this->middleware('auth');
         $this->middleware('can:update,post', ['only' => ['edit', 'update']]);
         $this->middleware('can:delete,post', ['only' => ['destroy']]);
-    }
-
-    public function test()
-    {
-        // $img = Image::make('testimg.jpg');
-        // #$img = "Foo";
-        // return view('imgtest', compact('img'));
-        return view('imgtest');
-
-        #$img = Image::canvas(800, 600, '#ff0000');
-        #$img = Image::make('public/testImg.jpg')->resize(300, 200);
-        #$img = Image::make('public/testImg.jpg');
-
-        #return $img->response();
-    }
-
-    public function upload()
-    {
-        request()->file('avatar')->store('avatars');
-
-        return back();
     }
 
     public function index()
@@ -67,10 +48,20 @@ class PostsController extends Controller
             'title' => 'required|min:1'
             ]);
 
-        $post = new Post($request->all());
+        $post = new Post();
+        $post->title = $request->input('content');
+        $post->content = $request->input('title');
         $post->user_id = Auth::user()->id;
+
+        # Image handling
+        $avatar = $request->file('image');
+        $filename = time() . '.' . $avatar->getClientOriginalExtension();
+        Image::make($avatar)->save( public_path('/uploads/images/' . $filename));
+        $post->image = $filename;
+
         $post->save();
         $comments = $post->comments()->get();
+
         return view('posts.show', compact('post', 'comments'));
     }
 
@@ -88,8 +79,25 @@ class PostsController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $post->update($request->all());
+        $this->validate($request, [
+            'content' => 'required|min:1',
+            'title' => 'required|min:1'
+            ]);
 
+        $post->title = $request->input('content');
+        $post->content = $request->input('title');
+
+        $post->user_id = Auth::user()->id;
+
+        # Image handling
+        if ($request->hasFile('image')){
+            $avatar = $request->file('image');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize(600,600)->save( public_path('/uploads/images/' . $filename));
+            $post->image = $filename;
+        }
+
+        $post->save();
         $comments = $post->comments()->get();
 
         return view('posts.show', compact('post', 'comments'));

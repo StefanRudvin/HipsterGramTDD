@@ -11,6 +11,8 @@
         </div>
 
         <div class="text-center"><h3>{{ $post->title }}</h3></div>
+        
+        <img src="/uploads/images/{{ $post->image }}" style="max-width: 500px; max-height: 500px;">
 
         <div class="panel-body">
         {{ $post->content }}

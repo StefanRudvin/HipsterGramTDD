@@ -6,13 +6,19 @@
             </div>
             <a href="{{ $post->path() }}">
             <h3>
+                <img src="/uploads/avatars/{{ $post->user->avatar }}" style="width: 32px; height: 32px; top: 10px; left: 10px; border-radius: 50%;">
+                                
                 {{ str_limit($post->title, $limit = 150, $end = '...') }}
             </h3>
             </a>
             
         </div>
+        <div class="panel-body">
+            <img src="/uploads/images/{{ $post->image }}" style="max-width: 500px; max-height: 500px; top: 10px; left: 10px;">
+        </div>
 
         <div class="panel-body">
+
             {{ str_limit($post->content, $limit = 150, $end = '...') }}
             <div class="text-center">
 

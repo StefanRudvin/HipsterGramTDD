@@ -36,15 +36,15 @@
                             
                             <li><a href="{{ action("PostsController@create") }}">New post</a></li>
 
-                            <li><a href="{{ action("UsersController@show", Auth::user()->id) }}">Profile</a></li>
-
                             <li><a href="{{ action("PostsController@index") }}">Posts</a></li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
+                                <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width: 25px; height: 25px; top: 10px; left: 10px; border-radius: 50%;">
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ action("UsersController@show", Auth::user()->id) }}">Profile</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

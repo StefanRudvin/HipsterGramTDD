@@ -2,22 +2,28 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            
-            <div class="panel panel-default">
-                
-                <div class="panel-heading">
-                    <h3> Create Post </h3>
-                </div>
+@component('layouts/_postform')
 
-            </div>
+    @slot('title')
+    @endslot
 
-            @include('layouts/_postform')
-      
-        </div>
-    </div>
-</div>
+    @slot('header')
+        Create Post
+    @endslot
+
+    @slot('content')
+    @endslot
+    
+    @slot('method')
+    @endslot
+
+    @slot('action')
+        "/post/new"
+    @endslot
+
+    @slot('btnName')
+        Submit Post
+    @endslot
+@endcomponent
 
 @endsection

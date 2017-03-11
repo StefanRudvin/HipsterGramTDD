@@ -30,7 +30,8 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'content' => $faker->realText($maxNbChars = 1000, $indexSize = 2),
         'title' => $faker->unique()->realText($maxNbChars = 40, $indexSize = 2),
-        'user_id' => App\User::all()->random()->id
+        'user_id' => App\User::all()->random()->id,
+        'image' => "defaults/default".rand(1,6).".jpg"
     ];
 });
 
