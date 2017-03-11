@@ -6,11 +6,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             
-            @include('layouts._post')
+            @include('layouts.posts._post')
 
-            @include('layouts/_comments')
+            @include('layouts/comments/_comments')
 
-            @include('layouts/_commentform')
+            @include('layouts/comments/_commentform')
 
         </div>
     </div>

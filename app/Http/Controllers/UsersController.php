@@ -49,4 +49,10 @@ class UsersController extends Controller
     {
         return view('admin.index');
     }
+
+    public function ToggleFollow(User $user)
+    {
+        $user->toggleFollow();
+        return back();
+    }
 }

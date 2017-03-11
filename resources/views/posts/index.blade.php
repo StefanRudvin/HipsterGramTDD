@@ -15,7 +15,7 @@
 
             </div>
 
-            @include ('layouts._posts')
+            @include ('layouts.posts._posts')
 
         </div>
     </div>

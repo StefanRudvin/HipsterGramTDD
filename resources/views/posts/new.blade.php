@@ -2,7 +2,7 @@
 
 @section('content')
 
-@component('layouts/_postform')
+@component('layouts/posts/_postform')
 
     @slot('title')
     @endslot

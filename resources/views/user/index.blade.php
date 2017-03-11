@@ -10,6 +10,11 @@
                     <h3>
                         {{ $user->name }}' Profile
                     </h3>
+
+                    <div class="pull-left">
+                        <a href="/user/{{$user->id}}/follow">{{ $user->followsCount() }}</a>
+                    </div>
+
                     <img src="/uploads/avatars/{{ $user->avatar }}" style="width: 150px; height: 150px; float: left; border-radius: 50%; margin-right: 25px;">
                     <form enctype="multipart/form-data" action="/user/{{$user->id}}" method="POST">
                     <label>Update Profile Image</label>
@@ -35,7 +40,7 @@
 
             </div>
 
-            @include('layouts/_posts')
+            @include('layouts/posts/_posts')
 
             <div class="panel panel-default">
 
@@ -47,7 +52,7 @@
 
             </div>
 
-            @include('layouts/_comments')
+            @include('layouts/comments/_comments')
             
         </div>
     </div>
