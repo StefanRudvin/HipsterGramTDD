@@ -20,7 +20,7 @@
     @endslot
 
     @slot('action')
-        "/posts/{{ $post->id }}"
+        "/Posts/{{ $post->id }}"
     @endslot
 
     @slot('btnName')

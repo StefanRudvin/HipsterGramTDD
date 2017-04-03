@@ -18,7 +18,7 @@
     @endslot
 
     @slot('action')
-        "/post/new"
+        "/Post/new"
     @endslot
 
     @slot('btnName')

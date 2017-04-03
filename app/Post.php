@@ -22,8 +22,8 @@ class Post extends Model
         return $this->hasMany('App\Comment');
     }
 
-    public function path()
+    public function oldpath()
     {
-        return '/posts/' . $this->id;
+        return '/Posts/' . $this->id;
     }
 }

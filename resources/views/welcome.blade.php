@@ -6,6 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>HipsterGram</title>
+            <div id="app">
+                <example></example>
+            </div>
+        </div>
+        
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -90,6 +95,7 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
+
         </div>
     </body>
 </html>

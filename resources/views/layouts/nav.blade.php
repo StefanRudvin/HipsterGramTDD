@@ -11,7 +11,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/posts') }}">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -34,9 +34,20 @@
                                 <li><a href="{{ action("UsersController@admin") }}">Admin panel</a></li>
                             @endif
                             
-                            <li><a href="{{ action("PostsController@create") }}">New post</a></li>
+                            <li><a href="/posts/create">New post</a></li>
 
-                            <li><a href="{{ action("PostsController@index") }}">Posts</a></li>
+                            <li><a href="/home">Discover</a></li>
+
+                            <li><a href="/posts">Feed</a></li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Old <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/Posts">Posts</a></li>
+                                </ul>
+                            </li>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

@@ -18,8 +18,17 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth'); 
         $this->middleware('admin', ['only' => ['admin']]);
+    }
+
+    public function test()
+    {
+        $users = User::all();
+
+        return response()->json([
+                    'users' => $users
+                ]);
     }
 
     public function updateAvatar(Request $request)

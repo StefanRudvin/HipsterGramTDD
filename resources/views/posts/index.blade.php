@@ -10,10 +10,10 @@
                 <div class="panel-heading">Home</div>
 
                 <div class="panel-body">
-                    Welcome to reddit!
+                    Welcome to hipsterGram!
                 </div>
 
-            </div>
+            </div>            
 
             @include ('layouts.posts._posts')
 

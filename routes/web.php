@@ -11,13 +11,19 @@
 |
 */
 
-
 /* Main routes */
 Auth::routes();
 Route::get('/', 'HomeController@welcome');
 Route::get('/home', 'HomeController@index');
 Route::get('/denied', 'HomeController@denied');
 Route::post('/avatars', 'PostsController@upload');
+
+Route::get('/users', 'UsersController@test');
+Route::get('/homeposts', 'PostsController@home');
+
+
+Route::resource('posts', 'PostsController');
+
 
 /* User routes */
 Route::get('/admin', 'UsersController@admin');
@@ -32,18 +38,18 @@ Route::post('/comment/{post}', 'CommentsController@store');
 # Like comment
 Route::get('/comment/like/{comment}', 'CommentsController@ToggleLike');
 
-/* Posts routes */
 
-# Index & Show posts
-Route::get('/posts', 'PostsController@index');
-Route::get('/posts/{post}', 'PostsController@show');
+# Old Post routes
+
+Route::get('/Posts', 'OldPostsController@index');
+Route::get('/Posts/{post}', 'OldPostsController@show');
 # Create new post
-Route::get('/post/new', 'PostsController@create');
-Route::post('/post/new', 'PostsController@store');
+Route::get('/Post/new', 'OldPostsController@create');
+Route::post('/Post/new', 'OldPostsController@store');
 # Edit post
-Route::patch('/posts/{post}', 'PostsController@update');
-Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::patch('/Posts/{post}', 'OldPostsController@update');
+Route::get('/Posts/{post}/edit', 'OldPostsController@edit');
 # Delete post
-Route::get('/posts/{post}/destroy', 'PostsController@destroy');
+Route::get('/Posts/{post}/destroy', 'OldPostsController@destroy');
 # Like post
-Route::get('/posts/like/{post}', 'PostsController@ToggleLike');
+Route::get('/Posts/like/{post}', 'OldPostsController@ToggleLike');

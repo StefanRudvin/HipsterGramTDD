@@ -4,7 +4,7 @@
             <div class="pull-right">
                 {{ $post->created_at->diffforHumans() }}
             </div>
-            <a href="{{ $post->path() }}">
+            <a href="{{ $post->oldpath() }}">
             <h3>
                 <img src="/uploads/avatars/{{ $post->user->avatar }}" style="width: 32px; height: 32px; top: 10px; left: 10px; border-radius: 50%;">
                                 
@@ -26,7 +26,7 @@
                     <a href="/user/{{ $post->user->id }}"> {{$post->user->name}}</a>
                 </div>
                 <div class="pull-left">
-                    <a href="/posts/like/{{ $post->id }}">{{ $post->likesCount() }}</a>
+                    <a href="/Posts/like/{{ $post->id }}">{{ $post->likesCount() }}</a>
                 </div>
             </div>
         </div>

@@ -13,8 +13,30 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('card', require('./components/cards.vue'));
+
+Vue.component('profile', require('./components/Profile.vue'));
+
+Vue.component('posts', require('./components/MaterialCards.vue'));
+
+Vue.component('likeButton', require('./components/likeButton.vue'));
+
+Vue.component('users', require('./components/Users.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    components: {
+     }
+
+});
+
+Vue.filter('truncate', function(value) {
+    var length = 60;
+
+    if(value.length <= length) {
+        return value;
+    }
+    else {
+        return value.substring(0, length) + '...';            
+    }
 });

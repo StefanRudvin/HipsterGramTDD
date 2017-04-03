@@ -23,7 +23,7 @@
         </div>
 
         <div class="pull-left">
-            <a href="/posts/like/{{ $post->id }}">{{ $post->likesCount() }}</a>
+            <a href="/Posts/like/{{ $post->id }}">{{ $post->likesCount() }}</a>
         </div>
         
         <div class="text-center">
