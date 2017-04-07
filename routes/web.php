@@ -11,35 +11,49 @@
 |
 */
 
+Route::resource('posts', 'PostsController');
+Route::resource('comments', 'CommentsController');
+Route::resource('users', 'UsersController');
+
+Route::post('/comments', 'CommentsController@store');
+
+Route::get('/posts/{post}/like', 'PostsController@ToggleLike');
+Route::get('/posts/{post}/isliked', 'PostsController@isLiked');
+
+Route::get('/comments/{comment}/like', 'CommentsController@ToggleLike');
+Route::get('/comments/{comment}/isliked', 'CommentsController@isLiked');
+
+Route::get('/users/{user}/posts', 'UsersController@getPosts');
+Route::get('/users/{user}/comments', 'UsersController@getComments');
+
+
 /* Main routes */
 Auth::routes();
 Route::get('/', 'HomeController@welcome');
 Route::get('/home', 'HomeController@index');
 Route::get('/denied', 'HomeController@denied');
+Route::get('/search', 'HomeController@search');
 Route::post('/avatars', 'PostsController@upload');
 
-Route::get('/users', 'UsersController@test');
 Route::get('/homeposts', 'PostsController@home');
 
-
-Route::resource('posts', 'PostsController');
-
-
 /* User routes */
-Route::get('/admin', 'UsersController@admin');
-Route::get('/user/{user}', 'UsersController@show');
-Route::post('/user/{user}', 'UsersController@updateAvatar');
-Route::get('/user/{user}/follow', 'UsersController@ToggleFollow');
+Route::get('/admin', 'OldUsersController@admin');
+Route::get('/user/{user}', 'OldUsersController@show');
+Route::post('/user/{user}', 'OldUsersController@updateAvatar');
+Route::get('/user/{user}/follow', 'OldUsersController@ToggleFollow');
 
-/* Comment routes */
+
+
+
+
+
+
 
 # Create new comment
-Route::post('/comment/{post}', 'CommentsController@store');
+Route::post('/Comment/{post}', 'OldCommentsController@store');
 # Like comment
-Route::get('/comment/like/{comment}', 'CommentsController@ToggleLike');
-
-
-# Old Post routes
+Route::get('/Comment/like/{comment}', 'OldCommentsController@ToggleLike');
 
 Route::get('/Posts', 'OldPostsController@index');
 Route::get('/Posts/{post}', 'OldPostsController@show');

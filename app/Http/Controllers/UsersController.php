@@ -2,66 +2,128 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Post;
-
 use App\User;
-
-use App\Comments;
-
-use Image;
-
-use Auth;
+use Illuminate\Support\Facades\Request;
 
 class UsersController extends Controller
 {
-    public function __construct()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    
+    public function index()
     {
-        $this->middleware('auth'); 
-        $this->middleware('admin', ['only' => ['admin']]);
-    }
+        if(Request::ajax())
+            {
+                $users = User::all();
 
-    public function test()
-    {
+                return response()->json([
+                            'users' => $users
+                        ]);
+            }
+
         $users = User::all();
 
-        return response()->json([
-                    'users' => $users
-                ]);
+        return view('user.index',compact('users'));
     }
 
-    public function updateAvatar(Request $request)
+    public function getComments(User $user)
     {
-        if ($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize(300,300)->save( public_path('/uploads/avatars/' . $filename));
-            $user = Auth::user();
-            $user->avatar = $filename;
-            $user->save();
-        }
+        $comments = $user->comments()->get();
 
-        return back();
+        return response()->json([
+                            'comments' => $comments
+                        ]);
     }
 
+    public function getPosts(User $user)
+    {
+        $posts = $user->posts()->get();
+
+        return response()->json([
+                            'posts' => $posts
+                        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
     public function show(User $user)
     {
+        if(Request::ajax())
+            {
+                $user = User::find($user);
+
+                return response()->json([
+                            'user' => $user
+                        ]);
+            }
+
         $posts = $user->posts()->get();
 
         $comments = $user->comments()->get();
 
-        return view('user.index', compact('posts','comments', 'user'));
+        return view('user.show', compact('posts','comments', 'user'));
+
     }
 
-    public function admin()
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
     {
-        return view('admin.index');
+        //
     }
 
-    public function ToggleFollow(User $user)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
     {
-        $user->toggleFollow();
-        return back();
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        //
     }
 }

@@ -1,4 +1,5 @@
 
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -13,15 +14,15 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('card', require('./components/cards.vue'));
+Vue.component('cards', require('./components/cards.vue'));
+Vue.component('usercards', require('./components/usercards.vue'));
 
-Vue.component('profile', require('./components/Profile.vue'));
+Vue.component('newpost', require('./components/newpost.vue'));
 
-Vue.component('posts', require('./components/MaterialCards.vue'));
+Vue.component('card', require('./components/Autonomous/card.vue'));
+Vue.component('comment', require('./components/Autonomous/comment.vue'));
 
-Vue.component('likeButton', require('./components/likeButton.vue'));
-
-Vue.component('users', require('./components/Users.vue'));
+Vue.component('post', require('./components/post.vue'));
 
 const app = new Vue({
     el: '#app',

@@ -33,12 +33,12 @@ class OldPostsController extends Controller
     {
         $posts = Post::all();
 
-        return view('posts.index', compact('posts'));
+        return view('old.posts.index', compact('posts'));
     }
 
     public function create()
     {
-        return view('posts.new');
+        return view('old.posts.new');
     }
 
     public function store(Request $request)
@@ -69,12 +69,12 @@ class OldPostsController extends Controller
     {
         $comments = $post->comments()->get();
 
-        return view('posts.show', compact('post', 'comments'));
+        return view('old.posts.show', compact('post', 'comments'));
     }
 
     public function edit(Post $post)
     {
-        return view('posts.edit',compact('post'));
+        return view('old.posts.edit',compact('post'));
     }
 
     public function update(Request $request, Post $post)
@@ -100,7 +100,7 @@ class OldPostsController extends Controller
         $post->save();
         $comments = $post->comments()->get();
 
-        return view('posts.show', compact('post', 'comments'));
+        return view('old.posts.show', compact('post', 'comments'));
     }
 
     public function destroy(Post $post)

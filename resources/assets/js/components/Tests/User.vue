@@ -9,9 +9,11 @@
             </thead>
             
             <tbody>
-                <tr v-for="user in users">
+                <tr>
                   <td>
-                    {{ user.name }}
+                    <a :href="'/users/' + user.id">
+                        {{ user.name }}
+                    </a>
                   </td>
                   <td>
                     {{ user.email }}
@@ -27,23 +29,25 @@
 export default {
     data(){
         return {
-            users: [
-            {
-              name:"HOHOH",
-              email:"HAHA.com"
-            }
-            ]
+            text: "Hi",
         }
     },
+    props: [ 'user' ],
 
     mounted(){
-        this.fetchUsers();
+        this.fetchPosts();
+        this.fetchComments();
     },
 
     methods: {
-        fetchUsers(){
-            axios.get('/users').then(response => {
-                this.users = response.data.users;
+        fetchPosts(){
+            axios.get('/users' + this.user.id + '/posts').then(response => {
+                this.posts = response.data.posts;
+            });
+        },
+        fetchComments(){
+            axios.get('/users' + this.user.id + '/comments').then(response => {
+                this.comments = response.data.comments;
             });
         },
     }

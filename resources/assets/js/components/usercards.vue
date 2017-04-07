@@ -3,9 +3,10 @@
     <div class="flex-row row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card"  v-for="post in posts" >
             <card :post=post></card>
-            
         </div>
     </div>
+
+    
 </div>
 
 </template>
@@ -17,12 +18,14 @@ import card from './Autonomous/card.vue';
 export default {
     data(){
         return {
-            posts: [],
+            posts: []
         }
     },
 
+    props: [ 'posts' ],
+
     mounted(){
-        this.fetchPosts();
+        this.isliked();
     },
 
     methods: {
@@ -31,6 +34,28 @@ export default {
                 this.posts = response.data.posts;
             });
         },
+
+        isliked(){
+            axios.get('/comments/' + this.thiscomment.id + '/isliked').then(response => {
+                this.liked = response.data.liked;
+            })
+            .then(response => {})
+            .catch(e => {
+                this.errors.push(e)
+        });
+        },
+
+        like(){
+            axios.get('/comments/' + this.thiscomment.id + '/like').then(response => {
+                this.thiscomment.score = response.data.score;
+                this.liked = response.data.liked;
+            })
+            .then(response => {})
+            .catch(e => {
+                this.errors.push(e)
+        });
+        }
+
     },
 
 }

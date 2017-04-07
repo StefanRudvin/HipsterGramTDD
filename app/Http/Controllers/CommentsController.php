@@ -2,46 +2,131 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Comment;
-use App\Post;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class CommentsController extends Controller
 {
-
-    public function __construct()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $this->middleware('auth');
-        $this->middleware('can:update,comment', ['only' => ['edit', 'update']]);
-        $this->middleware('can:delete,comment', ['only' => ['destroy']]);
+        //
     }
 
-    public function store(Post $post, Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
+        //
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $this->validate($request, [
-            'content' => 'required|min:1'
-            ]);
-
-        $comment = new Comment($request->all());
-        $comment->user_id = Auth::user()->id;
-        $comment->post_id = $post->id;
-        $comment->save();
-        return back();
+            'content' => 'required'
+        ]);
+        $comment = Comment::create([
+            'content' => $request->input('content'),
+            'user_id' => Auth::user()->id,
+        ]);
+        return response()->json([
+            'comment' => $comment
+        ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
     public function show(Comment $comment)
     {
-        $comments = $post->comments()->get();
+        if(Request::ajax())
+            {
+                $comment = Comment::find($comment->id);
 
-        return view('posts.show', compact('post', 'comments'));
+                $comment->owner = $comment->user->name;
+
+                $comment->time = $comment->created_at->diffforHumans();
+
+                $comment->score = $comment->likesCount();
+
+                $comment->img = $comment->user->avatar;
+
+                return response()->json([
+                            'comment' => $comment
+                        ]);
+            }
+        else {
+            echo $comment;
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Comment $comment)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Comment $comment)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Comment  $comment
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Comment $comment)
+    {
+        //
     }
 
     public function ToggleLike(Comment $comment)
     {
         $comment->toggleLike();
-        return back();
+        $comment->save();
+        $comment->score = $comment->likesCount();
+        $comment->liked = $comment->isLiked();
+        return response()->json([
+                            'comment' => $comment
+                        ]);
     }
 
+
+    public function isLiked(Comment $comment)
+    {
+        $liked = $comment->isLiked();
+        return response()->json([
+                            'liked' => $liked
+                        ]);
+    }
 }

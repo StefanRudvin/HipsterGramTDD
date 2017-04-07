@@ -1,10 +1,23 @@
 <template>   
-<div class="container-fluid">
-    <div class="flex-row row">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card"  v-for="post in posts" >
-            <card :post=post></card>
-            
+    <div class="card-block hover01">
+        <a :href="'/posts/' + post.id">
+        <div class="thumbnail">
+            <img class="card-image" v-bind:src="'/uploads/images/' + post.image" style="max-height: 20em;">
+            <div class="caption">
+                <h3>
+                    {{ post.title }}
+                    <small>
+                       By {{ owner }} {{ time }} ago
+                    </small>
+                </h3>
+                <hr>        
+                <p class="max-lines">
+                    {{ post.content}}
+                </p>
+                <button class="btn btn-default" role="button">View More</button>
+            </div>
         </div>
+        </a>
     </div>
 </div>
 
@@ -12,26 +25,45 @@
 
 <script>
 
-import card from './Autonomous/card.vue';
-
 export default {
     data(){
         return {
-            posts: [],
+            owner:'',
+            time: '',
+            errors: [],
         }
     },
 
+    props: [ 'post' ],
+
     mounted(){
-        this.fetchPosts();
+        this.fetchOwner();
+        this.fetchTime();
     },
 
     methods: {
-        fetchPosts(){
-            axios.get('/posts').then(response => {
-                this.posts = response.data.posts;
-            });
+        fetchOwner(){
+            axios.get('/users/' + this.post.user_id).then(response => {
+                this.owner = response.data.user.name;
+            })
+            .then(response => {})
+            .catch(e => {
+                this.errors.push(e)
+        });
         },
+
+        fetchTime(){
+            axios.get('/posts/' + this.post.id).then(response => {
+                this.time = response.data.post.time;
+            })
+            .then(response => {})
+            .catch(e => {
+                this.errors.push(e)
+        });
+        },
+
     },
+    
 
 }
 

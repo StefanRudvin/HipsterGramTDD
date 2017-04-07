@@ -18,7 +18,7 @@
                     </a>
                 </div>
                 <div class="pull-left">
-                    <a href="/comment/like/{{ $comment->id }}">{{ $comment->likesCount() }}
+                    <a href="/Comment/like/{{ $comment->id }}">{{ $comment->likesCount() }}
                     </a>
                 </div>
 

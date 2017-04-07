@@ -34,7 +34,7 @@
                                 <li><a href="{{ action("UsersController@admin") }}">Admin panel</a></li>
                             @endif
                             
-                            <li><a href="/posts/create">New post</a></li>
+                            <li><a href="/Post/new">New post</a></li>
 
                             <li><a href="/home">Discover</a></li>
 

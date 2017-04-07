@@ -1,4 +1,4 @@
-<form method="POST" action="/comment/{{$post->id}}">
+<form method="POST" action="/Comment/{{$post->id}}">
 
     <div class="form-group">
 

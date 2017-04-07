@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class PostsController extends Controller
 {
@@ -14,11 +14,15 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        if(Request::ajax())
+            {
+                $posts = Post::all();
 
-        return response()->json([
-                    'posts' => $posts
-                ]);
+                return response()->json([
+                            'posts' => $posts
+                        ]);
+            }
+
     }
 
     /**
@@ -28,7 +32,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.new');
     }
 
     /**
@@ -39,7 +43,23 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'content' => 'required|min:1',
+            'title' => 'required|min:1'
+            ]);
+
+        $post = new Post();
+        $post->title = $request->input('content');
+        $post->content = $request->input('title');
+        $post->user_id = Auth::user()->id;
+
+        # Image handling
+        // $avatar = $request->file('image');
+        // $filename = time() . '.' . $avatar->getClientOriginalExtension();
+        // Image::make($avatar)->save( public_path('/uploads/images/' . $filename));
+        // $post->image = $filename;
+
+        $post->save();
     }
 
     /**
@@ -50,7 +70,26 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        if(Request::ajax())
+            {
+                $post = Post::find($post->id);
+
+                $post->time = $post->created_at->diffforHumans();
+
+                $post->owner = $post->user->name;
+
+                $post->userImg = $post->user->avatar;
+
+                $post->score = $post->likesCount();
+
+                return response()->json([
+                            'post' => $post
+                        ]);
+            }
+
+        $comments = $post->comments()->get();
+
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**
@@ -85,5 +124,25 @@ class PostsController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function ToggleLike(Post $post)
+    {
+        $post->toggleLike();
+        $post->save();
+        $post->score = $post->likesCount();
+        $post->liked = $post->isLiked();
+        return response()->json([
+                            'post' => $post
+                        ]);
+    }
+
+
+    public function isLiked(Post $post)
+    {
+        $liked = $post->isLiked();
+        return response()->json([
+                            'liked' => $liked
+                        ]);
     }
 }
