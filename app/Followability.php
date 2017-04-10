@@ -23,7 +23,7 @@ trait Followability {
     					->where('user_id', Auth::id())
     					->count();
     }
-
+    
     public function unfollow()
     {
     	$this->follows()->where('user_id', Auth::id())->delete();

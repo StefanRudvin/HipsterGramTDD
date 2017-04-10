@@ -5,32 +5,33 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 card">
             <div class="card-block">
                 <div class="thumbnail">
-                    <img v-bind:src="'/uploads/images/' + thispost.image" v-on:click="like()">
+
                     <div class="caption">
                         <h3>
-                            {{ post.title }}
                             <div class="pull-left">
-                                <img v-bind:src="'/uploads/avatars/' + thispost.userImg" style="width: 50px; height: 50px; top: 5px; left: 10px; border-radius: 50%;">
+                                <img v-bind:src="'/uploads/avatars/' + user.avatar" style="width: 50px; height: 50px; top: 5px; left: 10px; border-radius: 50%;">
                             </div>
+
+                            <h1>{{ user.name }}' Profile</h1>
+                            
                             <small>
-                               Created by <a :href="'/users/' + thispost.user_id">{{ thispost.owner }} </a>{{ thispost.time }} score {{ thispost.score }}
+                               <!-- Created by <a :href="'/users/' + thispost.user_id">{{ user.name }} </a> -->
                             </small>
 
-                        </h3>
-                        <hr>        
+                        </h3>       
                         <p>
-                            {{ thispost.content }}
+                            <!-- {{ user.name }} -->
                         </p>
 
-                        <div v-if="liked">
-                        <button v-on:click="like()" class="heart pull-left glyphicon glyphicon-heart"/>
+                        <div v-if="followed">
+                        <button v-on:click="follow()" class="heart pull-left glyphicon glyphicon-heart"/>
                         </div>
                         <div v-else>
-                            <button v-on:click="like()" class="heart pull-left glyphicon glyphicon-heart-empty"/>
+                            <button v-on:click="follow()" class="heart pull-left glyphicon glyphicon-heart-empty"/>
                         </div>
 
                         <div class="pull-right">
-                            {{ thispost.score }}
+                            Followers: {{ thisuser.score }}
                         </div>
                         <br>
                     </div>
@@ -38,23 +39,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <div class="flex-row row">
-        <div class="container bootstrap snippet">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="blog-comment">
-                        <input type="text" v-model="postBody" @change="postPost()"/>
-                          <ul v-if="errors && errors.length">
-                            <li v-for="error of errors">
-                              {{error.message}}
-                            </li>
-                          </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
 </div>
 
@@ -65,45 +49,32 @@ import axios from 'axios';
 
 export default {
   data: () => ({
-    postBody: '',
     errors: [],
-    liked: false,
-    thispost: ''
+    followed: false,
+    thisuser: ''
   }),
 
-    props: [ 'post'],
+    props: [ 'user'],
 
     mounted(){
-        this.fetchPost();
+        this.fetchUser();
     },
 
     methods: {
-       
-        // Pushes posts to the server when called.
-        postPost() {
-            axios.post(`http://jsonplaceholder.typicode.com/posts`, {
-                content: this.postBody
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
 
-        },
+        // getFollows(){
+        //     axios.get('/users/' + this.user.id + '/getFollows').then(response => {
+        //         this.thisuser.score = response.data.score;
+        //     })
+        //     .then(response => {})
+        //     .catch(e => {
+        //         this.errors.push(e)
+        // });
+        // },
 
-        fetchPost(){
-            axios.get('/posts/' + this.post.id).then(response => {
-                this.thispost = response.data.post;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
-        isliked(){
-            axios.get('/posts/' + this.post.id + '/isliked').then(response => {
-                this.liked = response.data.liked;
+        fetchUser(){
+            axios.get('/users/' + this.user.id).then(response => {
+                this.thisuser = response.data.user;
             })
             .then(response => {})
             .catch(e => {
@@ -111,10 +82,22 @@ export default {
         });
         },
 
-        like(){
-            axios.get('/posts/' + this.thispost.id + '/like').then(response => {
-                this.thispost.score = response.data.post.score;
-                this.isliked();
+
+
+        isfollowed(){
+            axios.get('/users/' + this.user.id + '/isfollowed').then(response => {
+                this.followed = response.data.followed;
+            })
+            .then(response => {})
+            .catch(e => {
+                this.errors.push(e)
+        });
+        },
+
+        follow(){
+            axios.get('/users/' + this.thisuser.id + '/follow').then(response => {
+                this.thisuser.score = response.data.user.score;
+                this.isfollowed();
             })
             .then(response => {})
             .then()

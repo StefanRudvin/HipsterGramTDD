@@ -1,5 +1,6 @@
 
 
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -17,6 +18,8 @@ require('./bootstrap');
 Vue.component('cards', require('./components/cards.vue'));
 Vue.component('usercards', require('./components/usercards.vue'));
 
+Vue.component('profile', require('./components/profile.vue'));
+
 Vue.component('newpost', require('./components/newpost.vue'));
 
 Vue.component('card', require('./components/Autonomous/card.vue'));
@@ -29,15 +32,4 @@ const app = new Vue({
     components: {
      }
 
-});
-
-Vue.filter('truncate', function(value) {
-    var length = 60;
-
-    if(value.length <= length) {
-        return value;
-    }
-    else {
-        return value.substring(0, length) + '...';            
-    }
 });

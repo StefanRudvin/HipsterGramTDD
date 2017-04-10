@@ -3,22 +3,16 @@
 @section('content')
 
 <div id='app'>
-	<div class="container-fluid">
-    	<div class="flex-row row">
+    
+    <profile :user="{{ $user }}" ></profile>
 
-			<h1>{{ $user->name }}' Profile</h1>
+	<usercards :user="{{ $user }}" :posts="{{ $posts }}"></usercards>
 
-			<div class="pull-left">
-    			<a href="/user/{{$user->id}}/follow">
-    		{{ $user->followsCount() }}</a>
-    		</div>
+    @foreach ($comments as $comment)
+        <comment :comment="{{ $comment }}"></comment>
+    @endforeach -->
 
-    		<usercards :user="{{ $user }}" :posts="{{ $posts }}"></usercards>
-            
-    	</div>
-    </div>
-
-	
+      
 </div>
 
 @endsection

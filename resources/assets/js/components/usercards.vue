@@ -5,8 +5,6 @@
             <card :post=post></card>
         </div>
     </div>
-
-    
 </div>
 
 </template>

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 93);
+/******/ 	return __webpack_require__(__webpack_require__.s = 74);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(11);
+var bind = __webpack_require__(12);
 
 /*global toString:true*/
 
@@ -376,59 +376,6 @@ module.exports = {
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  scopeId,
-  cssModules
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  // inject cssModules
-  if (cssModules) {
-    var computed = options.computed || (options.computed = {})
-    Object.keys(cssModules).forEach(function (key) {
-      var module = cssModules[key]
-      computed[key] = function () { return module }
-    })
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
 /*
 	MIT License http://www.opensource.org/licenses/mit-license.php
 	Author Tobias Koppers @sokra
@@ -482,6 +429,59 @@ module.exports = function() {
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  scopeId,
+  cssModules
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  // inject cssModules
+  if (cssModules) {
+    var computed = options.computed || (options.computed = {})
+    Object.keys(cssModules).forEach(function (key) {
+      var module = cssModules[key]
+      computed[key] = function () { return module }
+    })
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -501,7 +501,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(90)
+var listToStyles = __webpack_require__(71)
 
 /*
 type StyleObject = {
@@ -706,11 +706,17 @@ function applyToTag (styleElement, obj) {
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(17);
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(32);
+var normalizeHeaderName = __webpack_require__(31);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -727,10 +733,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(7);
+    adapter = __webpack_require__(8);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(7);
+    adapter = __webpack_require__(8);
   }
   return adapter;
 }
@@ -801,10 +807,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -990,25 +996,57 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(18);
+
+/* styles */
+__webpack_require__(67)
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(34),
+  /* template */
+  __webpack_require__(60),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/stefanrudvin/Dropbox/Code/PHP/Laravel/Instagram/resources/assets/js/components/Autonomous/card.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] card.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-55f8fc05", Component.options)
+  } else {
+    hotAPI.reload("data-v-55f8fc05", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(24);
-var buildURL = __webpack_require__(27);
-var parseHeaders = __webpack_require__(33);
-var isURLSameOrigin = __webpack_require__(31);
-var createError = __webpack_require__(10);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(26);
+var settle = __webpack_require__(23);
+var buildURL = __webpack_require__(26);
+var parseHeaders = __webpack_require__(32);
+var isURLSameOrigin = __webpack_require__(30);
+var createError = __webpack_require__(11);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(25);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -1104,7 +1142,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(29);
+      var cookies = __webpack_require__(28);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -1178,10 +1216,10 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1207,7 +1245,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1219,13 +1257,13 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(23);
+var enhanceError = __webpack_require__(22);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -1243,7 +1281,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1261,7 +1299,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11521,9 +11559,7 @@ return jQuery;
 
 
 /***/ }),
-/* 13 */,
-/* 14 */,
-/* 15 */
+/* 14 */
 /***/ (function(module, exports) {
 
 var g;
@@ -11550,7 +11586,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -11561,7 +11597,7 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(47);
+__webpack_require__(41);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -11569,49 +11605,41 @@ __webpack_require__(47);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('cards', __webpack_require__(63));
-Vue.component('usercards', __webpack_require__(68));
+Vue.component('cards', __webpack_require__(52));
+Vue.component('usercards', __webpack_require__(56));
 
-Vue.component('newpost', __webpack_require__(65));
+Vue.component('profile', __webpack_require__(55));
 
-Vue.component('card', __webpack_require__(103));
-Vue.component('comment', __webpack_require__(108));
+Vue.component('newpost', __webpack_require__(53));
 
-Vue.component('post', __webpack_require__(66));
+Vue.component('card', __webpack_require__(7));
+Vue.component('comment', __webpack_require__(51));
+
+Vue.component('post', __webpack_require__(54));
 
 var app = new Vue({
-    el: '#app',
-    components: {}
+  el: '#app',
+  components: {}
 
-});
-
-Vue.filter('truncate', function (value) {
-    var length = 60;
-
-    if (value.length <= length) {
-        return value;
-    } else {
-        return value.substring(0, length) + '...';
-    }
 });
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(11);
-var Axios = __webpack_require__(20);
-var defaults = __webpack_require__(4);
+var bind = __webpack_require__(12);
+var Axios = __webpack_require__(19);
+var defaults = __webpack_require__(5);
 
 /**
  * Create an instance of Axios
@@ -11644,15 +11672,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(8);
-axios.CancelToken = __webpack_require__(19);
-axios.isCancel = __webpack_require__(9);
+axios.Cancel = __webpack_require__(9);
+axios.CancelToken = __webpack_require__(18);
+axios.isCancel = __webpack_require__(10);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(34);
+axios.spread = __webpack_require__(33);
 
 module.exports = axios;
 
@@ -11661,13 +11689,13 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(8);
+var Cancel = __webpack_require__(9);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -11725,18 +11753,18 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(21);
-var dispatchRequest = __webpack_require__(22);
-var isAbsoluteURL = __webpack_require__(30);
-var combineURLs = __webpack_require__(28);
+var InterceptorManager = __webpack_require__(20);
+var dispatchRequest = __webpack_require__(21);
+var isAbsoluteURL = __webpack_require__(29);
+var combineURLs = __webpack_require__(27);
 
 /**
  * Create a new instance of Axios
@@ -11817,7 +11845,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11876,16 +11904,16 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(25);
-var isCancel = __webpack_require__(9);
-var defaults = __webpack_require__(4);
+var transformData = __webpack_require__(24);
+var isCancel = __webpack_require__(10);
+var defaults = __webpack_require__(5);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -11962,7 +11990,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11988,13 +12016,13 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(10);
+var createError = __webpack_require__(11);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -12020,7 +12048,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12047,7 +12075,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12090,7 +12118,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12165,7 +12193,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12184,7 +12212,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12244,7 +12272,7 @@ module.exports = (
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12265,7 +12293,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12340,7 +12368,7 @@ module.exports = (
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12359,7 +12387,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12403,7 +12431,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12437,17 +12465,191 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue__ = __webpack_require__(103);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            owner: '',
+            time: '',
+            errors: []
+        };
+    },
+
+
+    props: ['post'],
+
+    mounted: function mounted() {
+        this.fetchOwner();
+        this.fetchTime();
+    },
+
+
+    methods: {
+        fetchOwner: function fetchOwner() {
+            var _this = this;
+
+            axios.get('/users/' + this.post.user_id).then(function (response) {
+                _this.owner = response.data.user.name;
+            }).then(function (response) {}).catch(function (e) {
+                _this.errors.push(e);
+            });
+        },
+        fetchTime: function fetchTime() {
+            var _this2 = this;
+
+            axios.get('/posts/' + this.post.id).then(function (response) {
+                _this2.time = response.data.post.time;
+            }).then(function (response) {}).catch(function (e) {
+                _this2.errors.push(e);
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            thiscomment: '',
+            errors: [],
+            liked: false
+        };
+    },
+    mounted: function mounted() {
+        this.fetchComment();
+        this.isliked();
+    },
+
+
+    props: ['comment'],
+
+    methods: {
+        fetchComment: function fetchComment() {
+            var _this = this;
+
+            axios.get('/comments/' + this.comment.id).then(function (response) {
+                _this.thiscomment = response.data.comment;
+            }).then(function (response) {}).catch(function (e) {
+                _this.errors.push(e);
+            });
+        },
+        isliked: function isliked() {
+            var _this2 = this;
+
+            axios.get('/comments/' + this.comment.id + '/isliked').then(function (response) {
+                _this2.liked = response.data.liked;
+            }).then(function (response) {}).catch(function (e) {
+                _this2.errors.push(e);
+            });
+        },
+        like: function like() {
+            var _this3 = this;
+
+            axios.get('/comments/' + this.thiscomment.id + '/like').then(function (response) {
+                _this3.thiscomment.score = response.data.comment.score;
+                _this3.isliked();
+            }).then(function (response) {}).then().catch(function (e) {
+                _this3.errors.push(e);
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue__);
 //
 //
@@ -12489,9 +12691,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 41 */,
-/* 42 */,
-/* 43 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -12596,12 +12796,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 44 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 //
 //
@@ -12709,7 +12909,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         isliked: function isliked() {
             var _this3 = this;
 
-            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/posts/' + this.thispost.id + '/isliked').then(function (response) {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/posts/' + this.post.id + '/isliked').then(function (response) {
                 _this3.liked = response.data.liked;
             }).then(function (response) {}).catch(function (e) {
                 _this3.errors.push(e);
@@ -12729,16 +12929,129 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 45 */,
-/* 46 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            errors: [],
+            followed: false,
+            thisuser: ''
+        };
+    },
+
+    props: ['user'],
+
+    mounted: function mounted() {
+        this.fetchUser();
+    },
+
+
+    methods: {
+
+        // getFollows(){
+        //     axios.get('/users/' + this.user.id + '/getFollows').then(response => {
+        //         this.thisuser.score = response.data.score;
+        //     })
+        //     .then(response => {})
+        //     .catch(e => {
+        //         this.errors.push(e)
+        // });
+        // },
+
+        fetchUser: function fetchUser() {
+            var _this = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/users/' + this.user.id).then(function (response) {
+                _this.thisuser = response.data.user;
+            }).then(function (response) {}).catch(function (e) {
+                _this.errors.push(e);
+            });
+        },
+        isfollowed: function isfollowed() {
+            var _this2 = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/users/' + this.user.id + '/isfollowed').then(function (response) {
+                _this2.followed = response.data.followed;
+            }).then(function (response) {}).catch(function (e) {
+                _this2.errors.push(e);
+            });
+        },
+        follow: function follow() {
+            var _this3 = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/users/' + this.thisuser.id + '/follow').then(function (response) {
+                _this3.thisuser.score = response.data.user.score;
+                _this3.isfollowed();
+            }).then(function (response) {}).then().catch(function (e) {
+                _this3.errors.push(e);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 40 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Autonomous_card_vue__);
-//
-//
 //
 //
 //
@@ -12801,11 +13114,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 47 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(58);
+window._ = __webpack_require__(50);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12813,9 +13126,9 @@ window._ = __webpack_require__(58);
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = __webpack_require__(12);
+window.$ = window.jQuery = __webpack_require__(13);
 
-__webpack_require__(48);
+__webpack_require__(42);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12823,7 +13136,7 @@ __webpack_require__(48);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(91);
+window.Vue = __webpack_require__(72);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12831,7 +13144,7 @@ window.Vue = __webpack_require__(91);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(6);
+window.axios = __webpack_require__(4);
 
 window.axios.defaults.headers.common = {
   'X-CSRF-TOKEN': window.Laravel.csrfToken,
@@ -12852,7 +13165,7 @@ window.axios.defaults.headers.common = {
 // });
 
 /***/ }),
-/* 48 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -15233,43 +15546,59 @@ if (typeof jQuery === 'undefined') {
 
 }(jQuery);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.heart:hover {\n    border: none;\n    background-color: none;\n    color: #00adee;\n    margin: 0;\n}\n.row{\n    padding-top: 10px;\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n\n\n\n", ""]);
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.heart:hover {\n    border: none;\n    background-color: none;\n    color: #00adee;\n    margin: 0;\n}\n.row{\n    padding-top: 10px;\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n\n\n\n", ""]);
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\nbody{\n    background:#eee;\n}\nhr {\n    margin-top: 20px;\n    margin-bottom: 20px;\n    border: 0;\n    border-top: 1px solid #FFFFFF;\n}\na {\n    color: #82b440;\n    text-decoration: none;\n}\n.blog-comment::before,\n.blog-comment::after,\n.blog-comment-form::before,\n.blog-comment-form::after{\n    content: \"\";\n    display: table;\n    clear: both;\n}\n.blog-comment{\n    padding-left: 15%;\n    padding-right: 15%;\n}\n.blog-comment ul{\n    list-style-type: none;\n    padding: 0;\n}\n.blog-comment img{\n    opacity: 1;\n    filter: Alpha(opacity=100);\n    border-radius: 4px;\n}\n.blog-comment img.avatar {\n    position: relative;\n    float: left;\n    margin-left: 0;\n    margin-top: 0;\n    width: 65px;\n    height: 65px;\n}\n.blog-comment .post-comments{\n    border: 1px solid #eee;\n    margin-bottom: 20px;\n    margin-left: 85px;\n    margin-right: 0px;\n    padding: 10px 20px;\n    position: relative;\n    border-radius: 4px;\n    background: #fff;\n    color: #6b6e80;\n    position: relative;\n}\n.blog-comment .meta {\n    font-size: 13px;\n    color: #aaaaaa;\n    padding-bottom: 8px;\n    margin-bottom: 10px !important;\n    border-bottom: 1px solid #eee;\n}\n.blog-comment ul.comments ul{\n    list-style-type: none;\n    padding: 0;\n    margin-left: 85px;\n}\n.blog-comment-form{\n    padding-left: 15%;\n    padding-right: 15%;\n    padding-top: 40px;\n}\n.blog-comment h3,\n.blog-comment-form h3{\n    margin-bottom: 40px;\n    font-size: 26px;\n    line-height: 30px;\n    font-weight: 800;\n}\n\n\n\n", ""]);
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.row{\n    padding-top: 10px;\n}\n.hover01 img {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transition: .15s ease-in-out;\n    transition: .15s ease-in-out;\n}\n.hover01 img:hover {\n    -webkit-transform: scale(1.05);\n    transform: scale(1.05);\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card *:hover{\n    text-decoration: none;\n}\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption h3{\n    font-family: 'Raleway',sans-serif; \n    font-weight: 600;\n    letter-spacing: -1px;\n    margin-top: 0;\n    text-transform: uppercase;\n    font-size: 18px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n.card .thumbnail .caption button{\n    border-radius: 0;\n    color: #aaa;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.card .thumbnail .caption button:hover{\n    background-color: black;\n    border-color: black;\n    color: white;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n\n", ""]);
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.row{\n    padding-top: 10px;\n}\n.hover01 img {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transition: .15s ease-in-out;\n    transition: .15s ease-in-out;\n}\n.hover01 img:hover {\n    -webkit-transform: scale(1.05);\n    transform: scale(1.05);\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card *:hover{\n    text-decoration: none;\n}\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption h3{\n    font-family: 'Raleway',sans-serif; \n    font-weight: 600;\n    letter-spacing: -1px;\n    margin-top: 0;\n    text-transform: uppercase;\n    font-size: 18px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n.card .thumbnail .caption button{\n    border-radius: 0;\n    color: #aaa;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.card .thumbnail .caption button:hover{\n    background-color: black;\n    border-color: black;\n    color: white;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n\n", ""]);
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)();
+exports.push([module.i, "\n.row{\n    padding-top: 10px;\n}\n.hover01 img {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transition: .15s ease-in-out;\n    transition: .15s ease-in-out;\n}\n.hover01 img:hover {\n    -webkit-transform: scale(1.05);\n    transform: scale(1.05);\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card *:hover{\n    text-decoration: none;\n}\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption h3{\n    font-family: 'Raleway',sans-serif; \n    font-weight: 600;\n    letter-spacing: -1px;\n    margin-top: 0;\n    text-transform: uppercase;\n    font-size: 18px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n.card .thumbnail .caption button{\n    border-radius: 0;\n    color: #aaa;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.card .thumbnail .caption button:hover{\n    background-color: black;\n    border-color: black;\n    color: white;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n\n", ""]);
 
 /***/ }),
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.heart:hover {\n    border: none;\n    background-color: none;\n    color: #00adee;\n    margin: 0;\n}\n.row{\n    padding-top: 10px;\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n\n\n\n", ""]);
-
-/***/ }),
-/* 50 */,
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.row{\n    padding-top: 10px;\n}\n.hover01 img {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transition: .15s ease-in-out;\n    transition: .15s ease-in-out;\n}\n.hover01 img:hover {\n    -webkit-transform: scale(1.05);\n    transform: scale(1.05);\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card *:hover{\n    text-decoration: none;\n}\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption h3{\n    font-family: 'Raleway',sans-serif; \n    font-weight: 600;\n    letter-spacing: -1px;\n    margin-top: 0;\n    text-transform: uppercase;\n    font-size: 18px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n.card .thumbnail .caption button{\n    border-radius: 0;\n    color: #aaa;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.card .thumbnail .caption button:hover{\n    background-color: black;\n    border-color: black;\n    color: white;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n\n", ""]);
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.row{\n    padding-top: 10px;\n}\n.hover01 img {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transition: .15s ease-in-out;\n    transition: .15s ease-in-out;\n}\n.hover01 img:hover {\n    -webkit-transform: scale(1.05);\n    transform: scale(1.05);\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card *:hover{\n    text-decoration: none;\n}\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption h3{\n    font-family: 'Raleway',sans-serif; \n    font-weight: 600;\n    letter-spacing: -1px;\n    margin-top: 0;\n    text-transform: uppercase;\n    font-size: 18px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n.card .thumbnail .caption button{\n    border-radius: 0;\n    color: #aaa;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.card .thumbnail .caption button:hover{\n    background-color: black;\n    border-color: black;\n    color: white;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n\n", ""]);
-
-/***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
+exports = module.exports = __webpack_require__(1)();
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
-/* 56 */,
-/* 57 */,
-/* 58 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32358,25 +32687,59 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(92)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14), __webpack_require__(73)(module)))
 
 /***/ }),
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(84)
+__webpack_require__(66)
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(40),
+  __webpack_require__(35),
   /* template */
-  __webpack_require__(73),
+  __webpack_require__(59),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/stefanrudvin/Dropbox/Code/PHP/Laravel/Instagram/resources/assets/js/components/Autonomous/comment.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] comment.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-26db09fa", Component.options)
+  } else {
+    hotAPI.reload("data-v-26db09fa", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(69)
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(36),
+  /* template */
+  __webpack_require__(62),
   /* scopeId */
   null,
   /* cssModules */
@@ -32403,19 +32766,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 64 */,
-/* 65 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(87)
+__webpack_require__(70)
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(43),
+  __webpack_require__(37),
   /* template */
-  __webpack_require__(77),
+  __webpack_require__(63),
   /* scopeId */
   null,
   /* cssModules */
@@ -32442,18 +32804,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 66 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(81)
+__webpack_require__(64)
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(44),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(69),
+  __webpack_require__(57),
   /* scopeId */
   null,
   /* cssModules */
@@ -32480,19 +32842,56 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 67 */,
-/* 68 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(83)
+__webpack_require__(65)
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(46),
+  __webpack_require__(39),
   /* template */
-  __webpack_require__(72),
+  __webpack_require__(58),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/stefanrudvin/Dropbox/Code/PHP/Laravel/Instagram/resources/assets/js/components/profile.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] profile.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-11924c7f", Component.options)
+  } else {
+    hotAPI.reload("data-v-11924c7f", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(68)
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(40),
+  /* template */
+  __webpack_require__(61),
   /* scopeId */
   null,
   /* cssModules */
@@ -32519,7 +32918,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 69 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32536,6 +32935,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     attrs: {
       "src": '/uploads/images/' + _vm.thispost.image
+    },
+    on: {
+      "click": function($event) {
+        _vm.like()
+      }
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "caption"
@@ -32583,9 +32987,156 @@ if (false) {
 }
 
 /***/ }),
-/* 70 */,
-/* 71 */,
-/* 72 */
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "flex-row row"
+  }, [_c('div', {
+    staticClass: "col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 card"
+  }, [_c('div', {
+    staticClass: "card-block"
+  }, [_c('div', {
+    staticClass: "thumbnail"
+  }, [_c('div', {
+    staticClass: "caption"
+  }, [_c('h3', [_c('div', {
+    staticClass: "pull-left"
+  }, [_c('img', {
+    staticStyle: {
+      "width": "50px",
+      "height": "50px",
+      "top": "5px",
+      "left": "10px",
+      "border-radius": "50%"
+    },
+    attrs: {
+      "src": '/uploads/avatars/' + _vm.user.avatar
+    }
+  })]), _vm._v(" "), _c('h1', [_vm._v(_vm._s(_vm.user.name) + "' Profile")]), _vm._v(" "), _c('small')]), _vm._v(" "), _c('p'), _vm._v(" "), (_vm.followed) ? _c('div', [_c('button', {
+    staticClass: "heart pull-left glyphicon glyphicon-heart",
+    on: {
+      "click": function($event) {
+        _vm.follow()
+      }
+    }
+  })]) : _c('div', [_c('button', {
+    staticClass: "heart pull-left glyphicon glyphicon-heart-empty",
+    on: {
+      "click": function($event) {
+        _vm.follow()
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_vm._v("\n                            Followers: " + _vm._s(_vm.thisuser.score) + "\n                        ")]), _vm._v(" "), _c('br')])])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-11924c7f", module.exports)
+  }
+}
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container bootstrap snippet"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "blog-comment"
+  }, [_c('ul', {
+    staticClass: "comments"
+  }, [_c('li', {
+    staticClass: "clearfix"
+  }, [_c('img', {
+    staticClass: "avatar",
+    attrs: {
+      "src": '/uploads/avatars/' + _vm.thiscomment.img
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "post-comments",
+    on: {
+      "click": function($event) {
+        _vm.like()
+      }
+    }
+  }, [_c('p', {
+    staticClass: "meta"
+  }, [_c('a', {
+    attrs: {
+      "href": '/users/' + _vm.thiscomment.user_id
+    }
+  }, [_vm._v("\n                                " + _vm._s(_vm.thiscomment.owner) + "\n                            ")]), _vm._v("\n                            says :\n                            "), _c('i', {
+    staticClass: "pull-right"
+  }, [_c('small', [_vm._v("\n                                    " + _vm._s(_vm.thiscomment.time) + "\n                                ")])])]), _vm._v(" "), _c('p', [_vm._v("\n                            " + _vm._s(_vm.thiscomment.content) + "\n                        ")]), _vm._v(" "), _c('div', {
+    staticClass: "pull-right"
+  }, [_vm._v("\n                            " + _vm._s(_vm.thiscomment.score) + "\n                        ")]), _vm._v(" "), (_vm.liked) ? _c('div', [_c('div', {
+    staticClass: "glyphicon glyphicon-heart"
+  })]) : _c('div', [_c('div', {
+    staticClass: "glyphicon glyphicon-heart-empty"
+  })])])])])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-26db09fa", module.exports)
+  }
+}
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card-block hover01"
+  }, [_c('a', {
+    attrs: {
+      "href": '/posts/' + _vm.post.id
+    }
+  }, [_c('div', {
+    staticClass: "thumbnail"
+  }, [_c('img', {
+    staticClass: "card-image",
+    staticStyle: {
+      "max-height": "20em"
+    },
+    attrs: {
+      "src": '/uploads/images/' + _vm.post.image
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "caption"
+  }, [_c('h3', [_vm._v("\n                    " + _vm._s(_vm.post.title) + "\n                    "), _c('small', [_vm._v("\n                       By " + _vm._s(_vm.owner) + " " + _vm._s(_vm.time) + " ago\n                    ")])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', {
+    staticClass: "max-lines"
+  }, [_vm._v("\n                    " + _vm._s(_vm.post.content) + "\n                ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default",
+    attrs: {
+      "role": "button"
+    }
+  }, [_vm._v("View More")])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-55f8fc05", module.exports)
+  }
+}
+
+/***/ }),
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32612,7 +33163,7 @@ if (false) {
 }
 
 /***/ }),
-/* 73 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32639,10 +33190,7 @@ if (false) {
 }
 
 /***/ }),
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32745,16 +33293,13 @@ if (false) {
 }
 
 /***/ }),
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(49);
+var content = __webpack_require__(43);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -32774,14 +33319,91 @@ if(false) {
 }
 
 /***/ }),
-/* 82 */,
-/* 83 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(51);
+var content = __webpack_require__(44);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("243120cb", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-11924c7f!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./profile.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-11924c7f!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./profile.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(45);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("6757cb86", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-26db09fa!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./comment.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-26db09fa!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./comment.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(46);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("afc6304c", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-55f8fc05!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./card.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-55f8fc05!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./card.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(47);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -32801,13 +33423,13 @@ if(false) {
 }
 
 /***/ }),
-/* 84 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(52);
+var content = __webpack_require__(48);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -32827,15 +33449,13 @@ if(false) {
 }
 
 /***/ }),
-/* 85 */,
-/* 86 */,
-/* 87 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(55);
+var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -32855,9 +33475,7 @@ if(false) {
 }
 
 /***/ }),
-/* 88 */,
-/* 89 */,
-/* 90 */
+/* 71 */
 /***/ (function(module, exports) {
 
 /**
@@ -32890,7 +33508,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 91 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42215,10 +42833,10 @@ Vue$3.compile = compileToFunctions;
 
 module.exports = Vue$3;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(14)))
 
 /***/ }),
-/* 92 */
+/* 73 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -42246,438 +42864,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 93 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(16);
-module.exports = __webpack_require__(17);
+__webpack_require__(15);
+module.exports = __webpack_require__(16);
 
-
-/***/ }),
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            owner: '',
-            time: '',
-            errors: []
-        };
-    },
-
-
-    props: ['post'],
-
-    mounted: function mounted() {
-        this.fetchOwner();
-        this.fetchTime();
-    },
-
-
-    methods: {
-        fetchOwner: function fetchOwner() {
-            var _this = this;
-
-            axios.get('/users/' + this.post.user_id).then(function (response) {
-                _this.owner = response.data.user.name;
-            }).then(function (response) {}).catch(function (e) {
-                _this.errors.push(e);
-            });
-        },
-        fetchTime: function fetchTime() {
-            var _this2 = this;
-
-            axios.get('/posts/' + this.post.id).then(function (response) {
-                _this2.time = response.data.post.time;
-            }).then(function (response) {}).catch(function (e) {
-                _this2.errors.push(e);
-            });
-        }
-    }
-
-});
-
-/***/ }),
-/* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.row{\n    padding-top: 10px;\n}\n.hover01 img {\n    -webkit-transform: scale(1);\n    transform: scale(1);\n    -webkit-transition: .15s ease-in-out;\n    transition: .15s ease-in-out;\n}\n.hover01 img:hover {\n    -webkit-transform: scale(1.05);\n    transform: scale(1.05);\n}\n.flex-row {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-wrap: wrap;\n        flex-wrap: wrap;\n}\n.max-lines {\n  display: block; /* or inline-block */\n  text-overflow: ellipsis;\n  word-wrap: break-word;\n  overflow: hidden;\n  max-height: 14.4em;\n  line-height: 7.2em;\n}\n\n/* cards */\n.card *:hover{\n    text-decoration: none;\n}\n.card .thumbnail{\n    padding: 0;\n    border: none;\n    text-align: center;\n    border-radius: 0;\n    box-shadow: 0px 0.5px 1px 0px rgba(0,0,0,0.75);\n}\n.card .thumbnail .caption{\n    margin: -20px 20px 20px 20px;\n    padding: 19px 29px 19px 29px;\n    position: relative;\n    background-color: white;\n}\n.card .thumbnail .caption h3 small{\n    font-style: italic;\n    text-transform: none;\n    letter-spacing: 0;\n    font-weight: 400;\n    font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;\n    display: block;\n    padding: 5px;\n}\n.card .thumbnail .caption h3{\n    font-family: 'Raleway',sans-serif; \n    font-weight: 600;\n    letter-spacing: -1px;\n    margin-top: 0;\n    text-transform: uppercase;\n    font-size: 18px;\n}\n.card .thumbnail .caption hr{\n    border-top: 1px solid #333;\n    margin: 20px 40px;\n}\n.card .thumbnail .caption p{\n    font-size: 12px;\n    line-height: 1.6;\n}\n.card .thumbnail .caption button{\n    border-radius: 0;\n    color: #aaa;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n.card .thumbnail .caption button:hover{\n    background-color: black;\n    border-color: black;\n    color: white;\n    -webkit-transition: 0.3s;\n    transition: 0.3s;\n}\n\n", ""]);
-
-/***/ }),
-/* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(105)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(101),
-  /* template */
-  __webpack_require__(104),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/stefanrudvin/Dropbox/Code/PHP/Laravel/Instagram/resources/assets/js/components/Autonomous/card.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] card.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-55f8fc05", Component.options)
-  } else {
-    hotAPI.reload("data-v-55f8fc05", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-block hover01"
-  }, [_c('a', {
-    attrs: {
-      "href": '/posts/' + _vm.post.id
-    }
-  }, [_c('div', {
-    staticClass: "thumbnail"
-  }, [_c('img', {
-    staticClass: "card-image",
-    staticStyle: {
-      "max-height": "20em"
-    },
-    attrs: {
-      "src": '/uploads/images/' + _vm.post.image
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "caption"
-  }, [_c('h3', [_vm._v("\n                    " + _vm._s(_vm.post.title) + "\n                    "), _c('small', [_vm._v("\n                       By " + _vm._s(_vm.owner) + " " + _vm._s(_vm.time) + " ago\n                    ")])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', {
-    staticClass: "max-lines"
-  }, [_vm._v("\n                    " + _vm._s(_vm.post.content) + "\n                ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-default",
-    attrs: {
-      "role": "button"
-    }
-  }, [_vm._v("View More")])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-55f8fc05", module.exports)
-  }
-}
-
-/***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(102);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("afc6304c", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-55f8fc05!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./card.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-55f8fc05!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./card.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 106 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            thiscomment: '',
-            errors: [],
-            liked: false
-        };
-    },
-    mounted: function mounted() {
-        this.fetchComment();
-        this.isliked();
-    },
-
-
-    props: ['comment'],
-
-    methods: {
-        fetchComment: function fetchComment() {
-            var _this = this;
-
-            axios.get('/comments/' + this.comment.id).then(function (response) {
-                _this.thiscomment = response.data.comment;
-            }).then(function (response) {}).catch(function (e) {
-                _this.errors.push(e);
-            });
-        },
-        isliked: function isliked() {
-            var _this2 = this;
-
-            axios.get('/comments/' + this.comment.id + '/isliked').then(function (response) {
-                _this2.liked = response.data.liked;
-            }).then(function (response) {}).catch(function (e) {
-                _this2.errors.push(e);
-            });
-        },
-        like: function like() {
-            var _this3 = this;
-
-            axios.get('/comments/' + this.thiscomment.id + '/like').then(function (response) {
-                _this3.thiscomment.score = response.data.comment.score;
-                _this3.isliked();
-            }).then(function (response) {}).then().catch(function (e) {
-                _this3.errors.push(e);
-            });
-        }
-    }
-
-});
-
-/***/ }),
-/* 107 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\nbody{\n    background:#eee;\n}\nhr {\n    margin-top: 20px;\n    margin-bottom: 20px;\n    border: 0;\n    border-top: 1px solid #FFFFFF;\n}\na {\n    color: #82b440;\n    text-decoration: none;\n}\n.blog-comment::before,\n.blog-comment::after,\n.blog-comment-form::before,\n.blog-comment-form::after{\n    content: \"\";\n    display: table;\n    clear: both;\n}\n.blog-comment{\n    padding-left: 15%;\n    padding-right: 15%;\n}\n.blog-comment ul{\n    list-style-type: none;\n    padding: 0;\n}\n.blog-comment img{\n    opacity: 1;\n    filter: Alpha(opacity=100);\n    border-radius: 4px;\n}\n.blog-comment img.avatar {\n    position: relative;\n    float: left;\n    margin-left: 0;\n    margin-top: 0;\n    width: 65px;\n    height: 65px;\n}\n.blog-comment .post-comments{\n    border: 1px solid #eee;\n    margin-bottom: 20px;\n    margin-left: 85px;\n    margin-right: 0px;\n    padding: 10px 20px;\n    position: relative;\n    border-radius: 4px;\n    background: #fff;\n    color: #6b6e80;\n    position: relative;\n}\n.blog-comment .meta {\n    font-size: 13px;\n    color: #aaaaaa;\n    padding-bottom: 8px;\n    margin-bottom: 10px !important;\n    border-bottom: 1px solid #eee;\n}\n.blog-comment ul.comments ul{\n    list-style-type: none;\n    padding: 0;\n    margin-left: 85px;\n}\n.blog-comment-form{\n    padding-left: 15%;\n    padding-right: 15%;\n    padding-top: 40px;\n}\n.blog-comment h3,\n.blog-comment-form h3{\n    margin-bottom: 40px;\n    font-size: 26px;\n    line-height: 30px;\n    font-weight: 800;\n}\n\n\n\n", ""]);
-
-/***/ }),
-/* 108 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(110)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(106),
-  /* template */
-  __webpack_require__(109),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/stefanrudvin/Dropbox/Code/PHP/Laravel/Instagram/resources/assets/js/components/Autonomous/comment.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] comment.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26db09fa", Component.options)
-  } else {
-    hotAPI.reload("data-v-26db09fa", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container bootstrap snippet"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "blog-comment"
-  }, [_c('ul', {
-    staticClass: "comments"
-  }, [_c('li', {
-    staticClass: "clearfix"
-  }, [_c('img', {
-    staticClass: "avatar",
-    attrs: {
-      "src": '/uploads/avatars/' + _vm.thiscomment.img
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "post-comments"
-  }, [_c('p', {
-    staticClass: "meta"
-  }, [_c('a', {
-    attrs: {
-      "href": '/users/' + _vm.thiscomment.user_id
-    }
-  }, [_vm._v("\n                                " + _vm._s(_vm.thiscomment.owner) + "\n                            ")]), _vm._v("\n                            says :\n                            "), _c('i', {
-    staticClass: "pull-right"
-  }, [_c('small', [_vm._v("\n                                    " + _vm._s(_vm.thiscomment.time) + "\n                                ")])])]), _vm._v(" "), _c('p', [_vm._v("\n                            " + _vm._s(_vm.thiscomment.content) + "\n                        ")]), _vm._v(" "), _c('div', {
-    staticClass: "pull-right"
-  }, [_vm._v("\n                            " + _vm._s(_vm.thiscomment.score) + "\n                        ")]), _vm._v(" "), (_vm.liked) ? _c('div', [_c('button', {
-    staticClass: "glyphicon glyphicon-heart",
-    on: {
-      "click": function($event) {
-        _vm.like()
-      }
-    }
-  })]) : _c('div', [_c('button', {
-    staticClass: "glyphicon glyphicon-heart-empty",
-    on: {
-      "click": function($event) {
-        _vm.like()
-      }
-    }
-  })])])])])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-26db09fa", module.exports)
-  }
-}
-
-/***/ }),
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(107);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("6757cb86", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-26db09fa!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./comment.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-26db09fa!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./comment.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
 
 /***/ })
 /******/ ]);

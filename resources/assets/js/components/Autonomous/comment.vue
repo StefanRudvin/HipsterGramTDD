@@ -8,7 +8,7 @@
 
                   <img v-bind:src="'/uploads/avatars/' + thiscomment.img" class="avatar">
                   
-                  <div class="post-comments">
+                  <div class="post-comments" v-on:click="like()">
                         <p class="meta">
                             <a :href="'/users/' + thiscomment.user_id">
                                 {{ thiscomment.owner }}
@@ -30,10 +30,10 @@
                         </div>
 
                         <div v-if="liked">
-                        <button v-on:click="like()" class="glyphicon glyphicon-heart"/>
+                        <div class="glyphicon glyphicon-heart"/>
                         </div>
                         <div v-else>
-                            <button v-on:click="like()" class="glyphicon glyphicon-heart-empty"/>
+                            <div class="glyphicon glyphicon-heart-empty"/>
                         </div>
 
                     </div>

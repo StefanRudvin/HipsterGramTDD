@@ -59,6 +59,8 @@
                                 </a>
                             </div>
                         </div>
+                        <h4>Email: stefanus@stefan.com</h4>
+                        <h4>Password: stefan</h4>
                     </form>
                 </div>
             </div>

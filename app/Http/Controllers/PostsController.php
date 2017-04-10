@@ -23,6 +23,16 @@ class PostsController extends Controller
                         ]);
             }
 
+        # Find posts of users that are followed by current user.
+
+        #
+
+        $posts = '';
+
+
+        return view('posts.index', compact('posts'));
+
+
     }
 
     /**

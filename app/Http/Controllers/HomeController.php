@@ -36,10 +36,4 @@ class HomeController extends Controller
         return view('welcome');
     }
 
-    public function search()
-    {
-        return view('search');
-    }
-
-
 }

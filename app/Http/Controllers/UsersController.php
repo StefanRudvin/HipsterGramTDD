@@ -29,24 +29,6 @@ class UsersController extends Controller
         return view('user.index',compact('users'));
     }
 
-    public function getComments(User $user)
-    {
-        $comments = $user->comments()->get();
-
-        return response()->json([
-                            'comments' => $comments
-                        ]);
-    }
-
-    public function getPosts(User $user)
-    {
-        $posts = $user->posts()->get();
-
-        return response()->json([
-                            'posts' => $posts
-                        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -79,6 +61,8 @@ class UsersController extends Controller
         if(Request::ajax())
             {
                 $user = User::find($user);
+
+                $user->score = $user->followsCount();
 
                 return response()->json([
                             'user' => $user
@@ -126,4 +110,35 @@ class UsersController extends Controller
     {
         //
     }
+
+    public function ToggleFollow(User $user)
+    {
+        $user->toggleFollow();
+        $user->save();
+        $user->score = $user->followsCount();
+        $user->followed = $user->isFollowed();
+        return response()->json([
+                            'user' => $user
+                        ]);
+    }
+
+
+    public function isFollowed(User $user)
+    {
+        $followed = $user->isFollowed();
+        return response()->json([
+                            'followed' => $followed
+                        ]);
+    }
+
+    public function getFollows(User $user)
+    {
+        $score = $user->followsCount();
+        return response()->json([
+                            'score' => $score
+                        ]);
+    }
+
+
+    
 }

@@ -62,7 +62,7 @@ class OldPostsController extends Controller
         $post->save();
         $comments = $post->comments()->get();
 
-        return view('posts.show', compact('post', 'comments'));
+        return view('old.posts.show', compact('post', 'comments'));
     }
 
     public function show(Post $post)
