@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
+use Auth;
 use Illuminate\Support\Facades\Request;
 
 class PostsController extends Controller
@@ -23,14 +25,17 @@ class PostsController extends Controller
                         ]);
             }
 
-        # Find posts of users that are followed by current user.
+        $posts = Post::all();
 
-        #
+        $followedPosts = array();
 
-        $posts = '';
+        foreach ($posts as $post) {
+            if ($post->user->isFollowed()) {
+                array_push($followedPosts, $post);
+            }
+        }
 
-
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('followedPosts'));
 
 
     }

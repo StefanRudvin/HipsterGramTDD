@@ -8,7 +8,8 @@
                     <img v-bind:src="'/uploads/images/' + thispost.image" v-on:click="like()">
                     <div class="caption">
                         <h3>
-                            {{ post.title }}
+                            <a :href="'/posts/' + thispost.id">{{ post.title }}</a>
+                            
                             <div class="pull-left">
                                 <img v-bind:src="'/uploads/avatars/' + thispost.userImg" style="width: 50px; height: 50px; top: 5px; left: 10px; border-radius: 50%;">
                             </div>

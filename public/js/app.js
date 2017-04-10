@@ -12865,6 +12865,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -32943,7 +32944,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "caption"
-  }, [_c('h3', [_vm._v("\n                            " + _vm._s(_vm.post.title) + "\n                            "), _c('div', {
+  }, [_c('h3', [_c('a', {
+    attrs: {
+      "href": '/posts/' + _vm.thispost.id
+    }
+  }, [_vm._v(_vm._s(_vm.post.title))]), _vm._v(" "), _c('div', {
     staticClass: "pull-left"
   }, [_c('img', {
     staticStyle: {

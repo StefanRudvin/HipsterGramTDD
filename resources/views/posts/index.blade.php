@@ -3,8 +3,11 @@
 @section('content')
 
 <div id='app'>
-	{{ $posts }}
-	<cards></cards>
+
+	@foreach ($followedPosts as $post)
+	    <post :post="{{ $post }}"></post>
+	@endforeach
+
 </div>
 
 @endsection
