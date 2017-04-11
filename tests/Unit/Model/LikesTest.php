@@ -17,9 +17,11 @@ class LikesTest extends TestCase
 	{
 		parent::setUp();
 
-		#$this->post = factory(Post::class)->create();
+		#$this->post = factory(App\Post::class)->create();
 
-		$this->post = createPost();
+		$this->post = createPost(
+            ['image'=>'default.jpg']
+            );
 
 		// Implemented from TestCase.php
 		$this->signIn();

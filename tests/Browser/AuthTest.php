@@ -25,7 +25,6 @@ class AuthTest extends DuskTestCase
                     ->type('password', 'secret')
                     ->press('Login')
                     ->assertPathIs('/home')
-                    ->assertSee('You are logged in!')
                     ->assertSee($user->name);
         });
     }
@@ -43,8 +42,7 @@ class AuthTest extends DuskTestCase
                     ->type('password', 'secret')
                     ->type('password_confirmation', 'secret')
                     ->press('Register')
-                    ->assertPathIs('/home')
-                    ->assertSee('You are logged in!');
+                    ->assertPathIs('/home');
         });
     }
 

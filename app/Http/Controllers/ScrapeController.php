@@ -30,15 +30,29 @@ class ScrapeController extends Controller
     	'author' => '.posts__post-author-link'
     	];
 
-    	return view('scraper')->with
-    	
-
+    	return view('scraper')
+            ->with('contents',$this->getContents()); 
 
 
     	// $crawler = Goutte::request('GET', 'https://duckduckgo.com/html/?q=Laravel');
     	// $crawler->filter('.result__title .result__a')->each(function ($node) {
 	    //   dump($node->text());
 	    // });
-	    return view('welcome');
+	    #return view('welcome');
+    }
+
+    public function setScrapeUrl($url = NULL, $method = 'GET')
+    {
+        $this->crawler = $this->client->request($method, $url);
+        return $this->crawler;
+    }
+
+    public function getContents()
+    {
+        return $this->content = $this->startScraper();
+    }
+
+    private function startScraper() {
+        
     }
 }

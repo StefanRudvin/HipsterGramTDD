@@ -48,4 +48,19 @@ class User extends Authenticatable
     {
         return $this->is_admin;
     }
+
+    public function getFollowedPosts()
+    {
+        $posts = Post::all();
+
+        $followedPosts = array();
+
+        foreach ($posts as $post) {
+            if ($post->user->isFollowed()) {
+                array_push($followedPosts, $post);
+            }
+        }
+
+        return $followedPosts;
+    }
 }

@@ -25,15 +25,7 @@ class PostsController extends Controller
                         ]);
             }
 
-        $posts = Post::all();
-
-        $followedPosts = array();
-
-        foreach ($posts as $post) {
-            if ($post->user->isFollowed()) {
-                array_push($followedPosts, $post);
-            }
-        }
+        $followedPosts = Auth::user()->getFollowedPosts();
 
         return view('posts.index', compact('followedPosts'));
 
