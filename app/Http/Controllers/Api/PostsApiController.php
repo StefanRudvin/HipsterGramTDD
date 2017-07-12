@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Post;
-use App\User;
-use Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class PostsController extends Controller
+class PostsApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,16 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $followedPosts = Auth::user()->getFollowedPosts();
+        $posts = Post::all();
 
-        return view('posts.index', compact('followedPosts'));
+        foreach( $posts as $post ) {
+            $post->owner = $post->user->name;
+            $post->time = $post->created_at->diffforHumans();
+        }
+
+        return response()->json([
+                    'posts' => $posts
+                ]);
     }
 
     /**
@@ -28,7 +34,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.new');
+        //
     }
 
     /**
@@ -39,7 +45,23 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request, [
+            'content' => 'required|min:1',
+            'title' => 'required|min:1'
+            ]);
+
+        $post = new Post();
+        $post->title = $request->input('content');
+        $post->content = $request->input('title');
+        $post->user_id = Auth::user()->id;
+
+        # Image handling
+        // $avatar = $request->file('image');
+        // $filename = time() . '.' . $avatar->getClientOriginalExtension();
+        // Image::make($avatar)->save( public_path('/uploads/images/' . $filename));
+        // $post->image = $filename;
+
+        $post->save();
     }
 
     /**
@@ -50,7 +72,14 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $post->userImg = $post->user->avatar;
+        $post->owner = $post->user->name;
+        $post->time = $post->created_at->diffforHumans();
+        $post->score = $post->likesCount();
+
+        return response()->json([
+                    'post' => $post
+                ]);
     }
 
     /**

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Comment;
 use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\Controller;
 
-class CommentsController extends Controller
+class CommentsApiController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,11 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+
+        return response()->json([
+                    'comments' => $comments
+                ]);
     }
 
     /**
@@ -35,7 +40,16 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request, [
+            'content' => 'required'
+        ]);
+        $comment = Comment::create([
+            'content' => $request->input('content'),
+            'user_id' => Auth::user()->id,
+        ]);
+        return response()->json([
+            'comment' => $comment
+        ]);
     }
 
     /**
@@ -46,7 +60,17 @@ class CommentsController extends Controller
      */
     public function show(Comment $comment)
     {
-        
+        $comment->owner = $comment->user->name;
+
+        $comment->time = $comment->created_at->diffforHumans();
+
+        $comment->score = $comment->likesCount();
+
+        $comment->img = $comment->user->avatar;
+
+        return response()->json([
+                    'comment' => $comment
+                ]);
     }
 
     /**

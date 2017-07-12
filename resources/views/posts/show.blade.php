@@ -5,9 +5,7 @@
 <div id='app'>
 	<post :post="{{ $post }}"></post>
 
-	@foreach ($comments as $comment)
-	    <comment :comment="{{ $comment }}"></comment>
-	@endforeach
+	<comments :post="{{ $post }}"></comments>
 
 </div>
 

@@ -73,7 +73,7 @@ export default {
         // },
 
         fetchUser(){
-            axios.get('/users/' + this.user.id).then(response => {
+            axios.get('api/users/' + this.user.id).then(response => {
                 this.thisuser = response.data.user;
             })
             .then(response => {})
@@ -85,7 +85,7 @@ export default {
 
 
         isfollowed(){
-            axios.get('/users/' + this.user.id + '/isfollowed').then(response => {
+            axios.get('api/users/' + this.user.id + '/isfollowed').then(response => {
                 this.followed = response.data.followed;
             })
             .then(response => {})
@@ -95,7 +95,7 @@ export default {
         },
 
         follow(){
-            axios.get('/users/' + this.thisuser.id + '/follow').then(response => {
+            axios.get('api/users/' + this.thisuser.id + '/follow').then(response => {
                 this.thisuser.score = response.data.user.score;
                 this.isfollowed();
             })

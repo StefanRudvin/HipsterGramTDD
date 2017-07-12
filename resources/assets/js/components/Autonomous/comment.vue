@@ -1,44 +1,41 @@
 <template>   
-<div class="container bootstrap snippet">
+<div class="container bootstrap snippet" v-if="show">
     <div class="row">
         <div class="col-md-12">
             <div class="blog-comment">
                 <ul class="comments">
-                <li class="clearfix">
+                    <li class="clearfix">
 
-                  <img v-bind:src="'/uploads/avatars/' + thiscomment.img" class="avatar">
-                  
-                  <div class="post-comments" v-on:click="like()">
-                        <p class="meta">
-                            <a :href="'/users/' + thiscomment.user_id">
-                                {{ thiscomment.owner }}
-                            </a>
-                            says :
-                            <i class="pull-right">
-                                <small>
-                                    {{ thiscomment.time}}
-                                </small>
-                            </i>
-                        </p>  
+                        <img v-bind:src="'/uploads/avatars/' + comment.img" class="avatar">
+                      
+                        <div class="post-comments" v-on:click="like()">
+                            <p class="meta">
+                                <a :href="'/users/' + comment.user_id">
+                                    {{ comment.owner }}
+                                </a>
+                                says :
+                                <i class="pull-right">
+                                    <small>
+                                        {{ comment.time}}
+                                    </small>
+                                </i>
+                            </p>  
 
-                        <p>
-                            {{ thiscomment.content }}
-                        </p>
+                            <p>
+                                {{ comment.content }}
+                            </p>
 
-                        <div class="pull-right">
-                            {{ thiscomment.score }}
-                        </div>
+                            <div class="pull-right">
+                                {{ thiscomment.score }}
+                            </div>
 
-                        <div v-if="liked">
-                        <div class="glyphicon glyphicon-heart"/>
-                        </div>
-                        <div v-else>
-                            <div class="glyphicon glyphicon-heart-empty"/>
-                        </div>
-
-                    </div>
-                </li>
-                
+                            <div v-if="liked">
+                                <div class="glyphicon glyphicon-heart"/></div>
+                                <div v-else>
+                                    <div class="glyphicon glyphicon-heart-empty"></div>
+                                </div>
+                            </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -52,32 +49,27 @@ export default {
 
     data(){
         return {
-            thiscomment: '',
+            thiscomment: this.comment,
             errors: [],
             liked: false,
+            show:true,
         }
     },
 
     mounted(){
-        this.fetchComment();
         this.isliked();
     },
 
     props: [ 'comment' ],
 
     methods: {
-        fetchComment(){
-            axios.get('/comments/' + this.comment.id).then(response => {
-                this.thiscomment = response.data.comment;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
+
+        del() {
+            this.show = false;
         },
 
         isliked(){
-            axios.get('/comments/' + this.comment.id + '/isliked').then(response => {
+            axios.get('/api/comments/' + this.comment.id + '/isliked').then(response => {
                 this.liked = response.data.liked;
             })
             .then(response => {})
@@ -87,9 +79,9 @@ export default {
         },
 
         like(){
-            axios.get('/comments/' + this.thiscomment.id + '/like').then(response => {
+            axios.get('/api/comments/'+ this.comment.id + '/like').then(response => {
                 this.thiscomment.score = response.data.comment.score;
-                this.isliked();
+                this.liked = response.data.comment.liked;
             })
             .then(response => {})
             .then()

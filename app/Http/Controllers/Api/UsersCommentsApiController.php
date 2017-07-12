@@ -1,20 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Comment;
-use Illuminate\Support\Facades\Request;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CommentsController extends Controller
+class UsersCommentsApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        $posts = $user->posts()->get();
+
+        return response()->json([
+                    'posts' => $posts
+                ]);
     }
 
     /**
@@ -35,7 +41,7 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -44,9 +50,22 @@ class CommentsController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(User $user, $commentid)
     {
-        
+        $posts = $user->comments()->get();
+        $comment = $posts[$commentid - 1];
+
+        $comment->owner = $comment->user->name;
+
+        $comment->time = $comment->created_at->diffforHumans();
+
+        $comment->score = $comment->likesCount();
+
+        $comment->img = $comment->user->avatar;
+
+        return response()->json([
+                    'comment' => $comment
+                ]);
     }
 
     /**
@@ -81,25 +100,5 @@ class CommentsController extends Controller
     public function destroy(Comment $comment)
     {
         //
-    }
-
-    public function ToggleLike(Comment $comment)
-    {
-        $comment->toggleLike();
-        $comment->save();
-        $comment->score = $comment->likesCount();
-        $comment->liked = $comment->isLiked();
-        return response()->json([
-                            'comment' => $comment
-                        ]);
-    }
-
-
-    public function isLiked(Comment $comment)
-    {
-        $liked = $comment->isLiked();
-        return response()->json([
-                            'liked' => $liked
-                        ]);
     }
 }

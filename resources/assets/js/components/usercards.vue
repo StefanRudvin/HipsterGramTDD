@@ -28,13 +28,13 @@ export default {
 
     methods: {
         fetchPosts(){
-            axios.get('/posts').then(response => {
+            axios.get('api/posts').then(response => {
                 this.posts = response.data.posts;
             });
         },
 
         isliked(){
-            axios.get('/comments/' + this.thiscomment.id + '/isliked').then(response => {
+            axios.get('api/comments/' + this.thiscomment.id + '/isliked').then(response => {
                 this.liked = response.data.liked;
             })
             .then(response => {})
@@ -44,7 +44,7 @@ export default {
         },
 
         like(){
-            axios.get('/comments/' + this.thiscomment.id + '/like').then(response => {
+            axios.get('api/comments/' + this.thiscomment.id + '/like').then(response => {
                 this.thiscomment.score = response.data.score;
                 this.liked = response.data.liked;
             })

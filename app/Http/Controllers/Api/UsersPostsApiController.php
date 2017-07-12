@@ -1,20 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Comment;
-use Illuminate\Support\Facades\Request;
+use App\Post;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CommentsController extends Controller
+class UsersPostsApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        //
+        $user = User::find($user);
+
+        $posts = $user->posts()->get();
+
+        return response()->json([
+                    'posts' => $posts
+                ]);
     }
 
     /**
@@ -35,27 +43,43 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(User $user, $postid)
     {
-        
+        $user = User::find($user);
+
+        $posts = $user->posts()->get();
+
+        $post = $posts[$postid - 1];
+
+        $post->time = $post->created_at->diffforHumans();
+
+        $post->owner = $post->user->name;
+
+        $post->userImg = $post->user->avatar;
+
+        $post->score = $post->likesCount();
+
+        return response()->json([
+                    'post' => $post
+                ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(Post $post)
     {
         //
     }
@@ -64,10 +88,10 @@ class CommentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -75,31 +99,11 @@ class CommentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(Post $post)
     {
         //
-    }
-
-    public function ToggleLike(Comment $comment)
-    {
-        $comment->toggleLike();
-        $comment->save();
-        $comment->score = $comment->likesCount();
-        $comment->liked = $comment->isLiked();
-        return response()->json([
-                            'comment' => $comment
-                        ]);
-    }
-
-
-    public function isLiked(Comment $comment)
-    {
-        $liked = $comment->isLiked();
-        return response()->json([
-                            'liked' => $liked
-                        ]);
     }
 }

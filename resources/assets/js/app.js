@@ -15,7 +15,8 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('cards', require('./components/cards.vue'));
+Vue.component('posts', require('./components/posts.vue'));
+Vue.component('comments', require('./components/comments.vue'));
 Vue.component('usercards', require('./components/usercards.vue'));
 
 Vue.component('profile', require('./components/profile.vue'));

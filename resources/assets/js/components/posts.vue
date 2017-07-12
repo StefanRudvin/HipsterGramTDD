@@ -3,7 +3,6 @@
     <div class="flex-row row">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 card"  v-for="post in posts" >
             <card :post=post></card>
-            
         </div>
     </div>
 </div>
@@ -27,7 +26,7 @@ export default {
 
     methods: {
         fetchPosts(){
-            axios.get('/posts').then(response => {
+            axios.get('/api/posts').then(response => {
                 this.posts = response.data.posts;
             });
         },

@@ -1,20 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Comment;
-use Illuminate\Support\Facades\Request;
+use App\Post;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CommentsController extends Controller
+class PostsCommentsApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post)
     {
-        //
+        $comments = $post->comments()->get();
+
+        foreach( $comments as $comment ) {
+
+            $comment->owner = $comment->user->name;
+
+            $comment->time = $comment->created_at->diffforHumans();
+
+            $comment->score = $comment->likesCount();
+
+            $comment->img = $comment->user->avatar;
+            
+        }
+
+        return response()->json([
+                    'comments' => $comments
+                ]);
     }
 
     /**
@@ -35,7 +53,7 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**
@@ -44,9 +62,23 @@ class CommentsController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(Post $post, $commentsid)
     {
-        
+        $comments = $post->comments()->get();
+
+        $comment = $comments[$commentsid - 1];
+
+        $comment->owner = $comment->user->name;
+
+        $comment->time = $comment->created_at->diffforHumans();
+
+        $comment->score = $comment->likesCount();
+
+        #$comment->img = $comment->user->avatar;
+
+        return response()->json([
+                    'comment' => $comment
+                ]);
     }
 
     /**
@@ -81,25 +113,5 @@ class CommentsController extends Controller
     public function destroy(Comment $comment)
     {
         //
-    }
-
-    public function ToggleLike(Comment $comment)
-    {
-        $comment->toggleLike();
-        $comment->save();
-        $comment->score = $comment->likesCount();
-        $comment->liked = $comment->isLiked();
-        return response()->json([
-                            'comment' => $comment
-                        ]);
-    }
-
-
-    public function isLiked(Comment $comment)
-    {
-        $liked = $comment->isLiked();
-        return response()->json([
-                            'liked' => $liked
-                        ]);
     }
 }

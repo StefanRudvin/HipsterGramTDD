@@ -7,7 +7,7 @@
                 <h3>
                     {{ post.title }}
                     <small>
-                       By {{ owner }} {{ time }} ago
+                       By {{ post.owner }} {{ post.time }}
                     </small>
                 </h3>
                 <hr>        
@@ -35,36 +35,7 @@ export default {
     },
 
     props: [ 'post' ],
-
-    mounted(){
-        this.fetchOwner();
-        this.fetchTime();
-    },
-
-    methods: {
-        fetchOwner(){
-            axios.get('/users/' + this.post.user_id).then(response => {
-                this.owner = response.data.user.name;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
-        fetchTime(){
-            axios.get('/posts/' + this.post.id).then(response => {
-                this.time = response.data.post.time;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
-    },
     
-
 }
 
 </script>

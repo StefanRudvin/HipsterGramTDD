@@ -66,11 +66,11 @@ import axios from 'axios';
 
 export default {
   data: () => ({
-    postBody: '',
-    errors: [],
-    liked: false,
-    thispost: ''
-  }),
+      postBody: '',
+      errors: [],
+      liked: false,
+      thispost: ''
+    }),
 
     props: [ 'post'],
 
@@ -93,7 +93,7 @@ export default {
         },
 
         fetchPost(){
-            axios.get('/posts/' + this.post.id).then(response => {
+            axios.get('/api/posts/' + this.post.id).then(response => {
                 this.thispost = response.data.post;
             })
             .then(response => {})
@@ -103,7 +103,7 @@ export default {
         },
 
         isliked(){
-            axios.get('/posts/' + this.post.id + '/isliked').then(response => {
+            axios.get('/api/posts/' + this.post.id + '/isliked').then(response => {
                 this.liked = response.data.liked;
             })
             .then(response => {})
@@ -113,7 +113,7 @@ export default {
         },
 
         like(){
-            axios.get('/posts/' + this.thispost.id + '/like').then(response => {
+            axios.get('/api/posts/' + this.thispost.id + '/like').then(response => {
                 this.thispost.score = response.data.post.score;
                 this.isliked();
             })

@@ -15,18 +15,7 @@ class UsersController extends Controller
     
     public function index()
     {
-        if(Request::ajax())
-            {
-                $users = User::all();
-
-                return response()->json([
-                            'users' => $users
-                        ]);
-            }
-
-        $users = User::all();
-
-        return view('user.index',compact('users'));
+        return view('user.index');
     }
 
     /**
