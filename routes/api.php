@@ -25,6 +25,8 @@ Route::resource('comments', 'Api\CommentsController');
 Route::post('/posts/{post}', 'Api\PostsController@show');
 Route::get('/posts/',        'Api\PostsController@index');
 
+Route::get('/admin/',        'UsersController@admin');
+
 Route::post('/users/{user}/toggleFollow', 'Api\UsersController@ToggleFollow');
 
 #Route::resource('posts.comments', 'Api\PostsCommentsController');
