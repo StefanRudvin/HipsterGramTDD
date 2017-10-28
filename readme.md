@@ -4,6 +4,10 @@
 
 An InstaGram clone built using Laravel.
 
+<img src="https://i.imgur.com/QuCEgkI.png">
+
+<img src="https://i.imgur.com/bkKHxgJ.png">
+
 To run, make sure you have node and npm installed
 
 ```
