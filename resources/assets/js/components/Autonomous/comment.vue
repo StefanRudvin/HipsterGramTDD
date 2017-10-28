@@ -7,7 +7,7 @@
                     <li class="clearfix">
 
                         <img v-bind:src="'/uploads/avatars/' + comment.img" class="avatar">
-                      
+
                         <div class="post-comments" v-on:click="like()">
                             <p class="meta">
                                 <a :href="'/users/' + comment.user_id">
@@ -19,7 +19,7 @@
                                         {{ comment.time}}
                                     </small>
                                 </i>
-                            </p>  
+                            </p>
 
                             <p>
                                 {{ comment.content }}
@@ -51,7 +51,6 @@ export default {
     data(){
         return {
             errors: [],
-            liked: false,
             show:true,
         }
     },
@@ -66,7 +65,8 @@ export default {
 
         like(){
             axios.post('/api/comments/'+ this.comment.id + '/toggleLike', {user_id: this.user.id}).then(response => {
-                this.comment = response.data.comment;
+                this.comment.score = response.data.comment.score;
+                this.comment.liked = response.data.comment.liked;
             })
             .then(response => {})
             .then()
@@ -97,6 +97,7 @@ a {
     color: #82b440;
     text-decoration: none;
 }
+
 .blog-comment::before,
 .blog-comment::after,
 .blog-comment-form::before,
@@ -176,6 +177,19 @@ a {
     font-size: 26px;
     line-height: 30px;
     font-weight: 800;
+}
+
+@media screen and (max-width: 480px) {
+    .blog-comment{
+        padding: 0;
+    }
+    .blog-comment .post-comments {
+        padding: 10px;
+        margin: 0px;
+    }
+    .avatar{
+        display: none;
+    }
 }
 
 

@@ -50,8 +50,16 @@
                 text-align: center;
             }
 
-            .title {
-                font-size: 84px;
+            @media screen and (max-width: 480px) {
+                .title {
+                    font-size: 3rem;
+                }
+            }
+
+            @media screen and (min-width: 480px) {
+                .title {
+                    font-size: 4rem;
+                }
             }
 
             .links > a {

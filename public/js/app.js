@@ -43294,7 +43294,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\nbody{\n    background:#eee;\n}\nhr {\n    margin-top: 20px;\n    margin-bottom: 20px;\n    border: 0;\n    border-top: 1px solid #FFFFFF;\n}\na {\n    color: #82b440;\n    text-decoration: none;\n}\n.blog-comment::before,\n.blog-comment::after,\n.blog-comment-form::before,\n.blog-comment-form::after{\n    content: \"\";\n    display: table;\n    clear: both;\n}\n.blog-comment{\n    padding-left: 15%;\n    padding-right: 15%;\n}\n.blog-comment ul{\n    list-style-type: none;\n    padding: 0;\n}\n.blog-comment img{\n    opacity: 1;\n    filter: Alpha(opacity=100);\n    border-radius: 4px;\n}\n.blog-comment img.avatar {\n    position: relative;\n    float: left;\n    margin-left: 0;\n    margin-top: 0;\n    width: 65px;\n    height: 65px;\n}\n.blog-comment .post-comments{\n    border: 1px solid #eee;\n    margin-bottom: 20px;\n    margin-left: 85px;\n    margin-right: 0px;\n    padding: 10px 20px;\n    position: relative;\n    border-radius: 4px;\n    background: #fff;\n    color: #6b6e80;\n    position: relative;\n}\n.blog-comment .meta {\n    font-size: 13px;\n    color: #aaaaaa;\n    padding-bottom: 8px;\n    margin-bottom: 10px !important;\n    border-bottom: 1px solid #eee;\n}\n.blog-comment ul.comments ul{\n    list-style-type: none;\n    padding: 0;\n    margin-left: 85px;\n}\n.blog-comment-form{\n    padding-left: 15%;\n    padding-right: 15%;\n    padding-top: 40px;\n}\n.blog-comment h3,\n.blog-comment-form h3{\n    margin-bottom: 40px;\n    font-size: 26px;\n    line-height: 30px;\n    font-weight: 800;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\nbody{\n    background:#eee;\n}\nhr {\n    margin-top: 20px;\n    margin-bottom: 20px;\n    border: 0;\n    border-top: 1px solid #FFFFFF;\n}\na {\n    color: #82b440;\n    text-decoration: none;\n}\n.blog-comment::before,\n.blog-comment::after,\n.blog-comment-form::before,\n.blog-comment-form::after{\n    content: \"\";\n    display: table;\n    clear: both;\n}\n.blog-comment{\n    padding-left: 15%;\n    padding-right: 15%;\n}\n.blog-comment ul{\n    list-style-type: none;\n    padding: 0;\n}\n.blog-comment img{\n    opacity: 1;\n    filter: Alpha(opacity=100);\n    border-radius: 4px;\n}\n.blog-comment img.avatar {\n    position: relative;\n    float: left;\n    margin-left: 0;\n    margin-top: 0;\n    width: 65px;\n    height: 65px;\n}\n.blog-comment .post-comments{\n    border: 1px solid #eee;\n    margin-bottom: 20px;\n    margin-left: 85px;\n    margin-right: 0px;\n    padding: 10px 20px;\n    position: relative;\n    border-radius: 4px;\n    background: #fff;\n    color: #6b6e80;\n    position: relative;\n}\n.blog-comment .meta {\n    font-size: 13px;\n    color: #aaaaaa;\n    padding-bottom: 8px;\n    margin-bottom: 10px !important;\n    border-bottom: 1px solid #eee;\n}\n.blog-comment ul.comments ul{\n    list-style-type: none;\n    padding: 0;\n    margin-left: 85px;\n}\n.blog-comment-form{\n    padding-left: 15%;\n    padding-right: 15%;\n    padding-top: 40px;\n}\n.blog-comment h3,\n.blog-comment-form h3{\n    margin-bottom: 40px;\n    font-size: 26px;\n    line-height: 30px;\n    font-weight: 800;\n}\n@media screen and (max-width: 480px) {\n.blog-comment{\n        padding: 0;\n}\n.blog-comment .post-comments {\n        padding: 10px;\n        margin: 0px;\n}\n.avatar{\n        display: none;\n}\n}\n\n\n\n", ""]);
 
 /***/ }),
 /* 56 */
@@ -43354,7 +43354,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             errors: [],
-            liked: false,
             show: true
         };
     },
@@ -43370,7 +43369,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.post('/api/comments/' + this.comment.id + '/toggleLike', { user_id: this.user.id }).then(function (response) {
-                _this.comment = response.data.comment;
+                _this.comment.score = response.data.comment.score;
+                _this.comment.liked = response.data.comment.liked;
             }).then(function (response) {}).then().catch(function (e) {
                 _this.errors.push(e);
             });

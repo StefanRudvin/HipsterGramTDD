@@ -17,6 +17,8 @@ Route::resource('posts', 'PostsController');
 Route::resource('comments', 'CommentsController');
 Route::resource('users', 'UsersController');
 
+Route::get('/admin/',        'UsersController@admin');
+
 // # Like & Follow routes
 
 // 	Route::get('/posts/{post}/like', 'PostsController@ToggleLike');
