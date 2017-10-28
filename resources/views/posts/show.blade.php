@@ -3,9 +3,13 @@
 @section('content')
 
 <div id='app'>
-	<post :post="{{ $post }}"></post>
+	<post :post="{{ $post }}"
+		  :user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}">
+	</post>
 
-	<comments :post="{{ $post }}"></comments>
+	<comments :post="{{ $post }}"
+			  :user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}">
+	</comments>
 
 </div>
 

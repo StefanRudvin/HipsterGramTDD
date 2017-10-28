@@ -1,7 +1,7 @@
 <template>   
 <div>
     <div v-for="comment in comments">
-        <comment :comment=comment></comment>
+        <comment :comment=comment :user=user></comment>
     </div>
     {{ ok }}
 </div>
@@ -20,7 +20,7 @@ export default {
         }
     },
 
-    props: [ 'post' ],
+    props: [ 'post', 'user'],
 
     mounted(){
         this.fetchComments();
@@ -28,7 +28,7 @@ export default {
 
     methods: {
         fetchComments(){
-            axios.get('/api/posts/' + this.post.id + '/comments').then(response => {
+            axios.post('/api/posts/' + this.post.id + '/comments', {user_id: this.user.id}).then(response => {
                 this.comments = response.data.comments;
             });
         },

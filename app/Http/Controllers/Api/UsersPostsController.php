@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Post;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UsersApiController extends Controller
+class UsersPostsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        $users = User::all();
+        $user = User::find($user);
+
+        $posts = $user->posts()->get();
 
         return response()->json([
-                    'users' => $users
+                    'posts' => $posts
                 ]);
     }
 
@@ -46,25 +49,37 @@ class UsersApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(User $user, $postid)
     {
-        $user->score = $user->followsCount();
+        $user = User::find($user);
+
+        $posts = $user->posts()->get();
+
+        $post = $posts[$postid - 1];
+
+        $post->time = $post->created_at->diffforHumans();
+
+        $post->owner = $post->user->name;
+
+        $post->userImg = $post->user->avatar;
+
+        $post->score = $post->likesCount();
 
         return response()->json([
-                    'user' => $user
+                    'post' => $post
                 ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Post $post)
     {
         //
     }
@@ -73,10 +88,10 @@ class UsersApiController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Post $post)
     {
         //
     }
@@ -84,10 +99,10 @@ class UsersApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Post $post)
     {
         //
     }

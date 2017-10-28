@@ -47,23 +47,30 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        if(Request::ajax())
-            {
-                $user = User::find($user);
-
-                $user->score = $user->followsCount();
-
-                return response()->json([
-                            'user' => $user
-                        ]);
-            }
-
         $posts = $user->posts()->get();
+
+        $user->score    = $user->followsCount();
+        $user->followed = $user->followsCount();
+
+        foreach ($posts as $post) {
+            $post->userImg = $post->user->avatar;
+            $post->owner   = $post->user->name;
+            $post->time    = $post->created_at->diffforHumans();
+            $post->score   = $post->likesCount();
+            $post->liked   = $post->isLiked($user->id);
+        }
 
         $comments = $user->comments()->get();
 
-        return view('user.show', compact('posts','comments', 'user'));
+        foreach ($comments as $comment) {
+            $comment->score = $comment->likesCount();
+            $comment->liked = $comment->isLiked($user->id);
+            $comment->owner = $comment->user->name;
+            $comment->time  = $comment->created_at->diffforHumans();
+            $comment->img   = $comment->user->avatar;
+        }
 
+        return view('user.show', compact('posts','comments', 'user'));
     }
 
     /**
@@ -99,18 +106,6 @@ class UsersController extends Controller
     {
         //
     }
-
-    public function ToggleFollow(User $user)
-    {
-        $user->toggleFollow();
-        $user->save();
-        $user->score = $user->followsCount();
-        $user->followed = $user->isFollowed();
-        return response()->json([
-                            'user' => $user
-                        ]);
-    }
-
 
     public function isFollowed(User $user)
     {

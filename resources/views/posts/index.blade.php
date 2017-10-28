@@ -4,8 +4,9 @@
 
 <div id='app'>
 
-	@foreach ($followedPosts as $post)
-	    <post :post="{{ $post }}"></post>
+	@foreach ($posts as $post)
+	    <post :post="{{ $post }}"
+		:user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}"></post>
 	@endforeach
 
 </div>

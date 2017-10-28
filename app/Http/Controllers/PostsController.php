@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
 class PostsController extends Controller
@@ -16,9 +15,16 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $followedPosts = Auth::user()->getFollowedPosts();
+        $posts = Auth::user()->getFollowedPosts();
 
-        return view('posts.index', compact('followedPosts'));
+        foreach ($posts as $post) {
+            $post->userImg = $post->user->avatar;
+            $post->owner = $post->user->name;
+            $post->time = $post->created_at->diffforHumans();
+            $post->score = $post->likesCount();
+            $post->liked = $post->isLiked(Auth::user()->id);
+        }
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -87,23 +93,4 @@ class PostsController extends Controller
         //
     }
 
-    public function ToggleLike(Post $post)
-    {
-        $post->toggleLike();
-        $post->save();
-        $post->score = $post->likesCount();
-        $post->liked = $post->isLiked();
-        return response()->json([
-                            'post' => $post
-                        ]);
-    }
-
-
-    public function isLiked(Post $post)
-    {
-        $liked = $post->isLiked();
-        return response()->json([
-                            'liked' => $liked
-                        ]);
-    }
 }

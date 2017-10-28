@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -53,10 +54,12 @@ class User extends Authenticatable
     {
         $posts = Post::all();
 
+        $userId = Auth::user()->id;
+
         $followedPosts = array();
 
         foreach ($posts as $post) {
-            if ($post->user->isFollowed()) {
+            if ($post->user->isFollowed($userId)) {
                 array_push($followedPosts, $post);
             }
         }
