@@ -23,11 +23,11 @@
                             {{ thispost.content }}
                         </p>
 
-                        <div v-if="liked">
-                        <button v-on:click="like()" class="heart pull-left glyphicon glyphicon-heart"/>
+                        <div v-if="thispost.liked">
+                        <div v-on:click="like()" class="pull-left glyphicon glyphicon-heart"/>
                         </div>
                         <div v-else>
-                            <button v-on:click="like()" class="heart pull-left glyphicon glyphicon-heart-empty"/>
+                            <div v-on:click="like()" class="heart pull-left glyphicon glyphicon-heart-empty"/>
                         </div>
 
                         <div class="pull-right">
@@ -66,13 +66,12 @@ import axios from 'axios';
 
 export default {
   data: () => ({
-      postBody: '',
-      errors: [],
-      liked: false,
-      thispost: ''
+      postBody : '',
+      errors   : [],
+      liked    : false,
+      thispost : ''
     }),
-
-    props: [ 'post'],
+    props: ['post', 'user'],
 
     mounted(){
         this.fetchPost();
@@ -93,7 +92,7 @@ export default {
         },
 
         fetchPost(){
-            axios.get('/api/posts/' + this.post.id).then(response => {
+            axios.post('/api/posts/' + this.post.id, {user_id: this.user.id}).then(response => {
                 this.thispost = response.data.post;
             })
             .then(response => {})
@@ -103,7 +102,7 @@ export default {
         },
 
         isliked(){
-            axios.get('/api/posts/' + this.post.id + '/isliked').then(response => {
+            axios.post('/api/posts/' + this.post.id + '/isliked', {user_id: this.user.id}).then(response => {
                 this.liked = response.data.liked;
             })
             .then(response => {})
@@ -113,9 +112,8 @@ export default {
         },
 
         like(){
-            axios.get('/api/posts/' + this.thispost.id + '/like').then(response => {
-                this.thispost.score = response.data.post.score;
-                this.isliked();
+            axios.post('/api/posts/' + this.thispost.id + '/toggleLike', {user_id: this.user.id}).then(response => {
+                this.thispost = response.data.post;
             })
             .then(response => {})
             .then()

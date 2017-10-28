@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class PostsApiController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -67,15 +68,20 @@ class PostsApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
+     * @param Request    $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post, Request $request)
     {
+        $userId = $request->get('user_id');
+
         $post->userImg = $post->user->avatar;
         $post->owner = $post->user->name;
         $post->time = $post->created_at->diffforHumans();
         $post->score = $post->likesCount();
+        $post->liked = $post->isLiked($userId);
 
         return response()->json([
                     'post' => $post
@@ -116,23 +122,37 @@ class PostsApiController extends Controller
         //
     }
 
-    public function ToggleLike(Post $post)
+    /**
+     * @param Post    $post
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function ToggleLike(Post $post, Request $request)
     {
-        $post->toggleLike();
+        $userId = $request->get('user_id');
+        $post->toggleLike($userId);
         $post->save();
         $post->score = $post->likesCount();
-        $post->liked = $post->isLiked();
+        $post->liked = $post->isLiked($userId);
+
+        $post->userImg = $post->user->avatar;
+        $post->owner = $post->user->name;
+        $post->time = $post->created_at->diffforHumans();
+
         return response()->json([
-                            'post' => $post
-                        ]);
+            'post' => $post
+        ]);
     }
 
 
-    public function isLiked(Post $post)
+    public function isLiked(Post $post, Request $request)
     {
-        $liked = $post->isLiked();
+        $userId = $request->get('user_id');
+        $liked = $post->isLiked($userId);
         return response()->json([
-                            'liked' => $liked
-                        ]);
+            'liked' => $liked
+        ]);
     }
 }

@@ -10,31 +10,31 @@ trait Followability {
 		return $this->morphMany(Follow::class , 'followable');
 	}
 
-    public function follow()
+    public function follow(int $userId)
     {
-    	$follow = new Follow(['user_id' => Auth::id()]);
+    	$follow = new Follow(['user_id' => $userId]);
 
-    	$this->follows()->save($follow);
+    	return $this->follows()->save($follow);
     }
 
-    public function isFollowed()
+    public function isFollowed(int $userId)
     {
     	return !! $this->follows()
-    					->where('user_id', Auth::id())
+    					->where('user_id', $userId)
     					->count();
     }
     
-    public function unfollow()
+    public function unfollow(int $userId)
     {
-    	$this->follows()->where('user_id', Auth::id())->delete();
+    	return $this->follows()->where('user_id', $userId)->delete();
     }
 
-    public function toggleFollow()
+    public function toggleFollow(int $userId)
     {
-    	if ($this->isFollowed()) {
-    		return $this->unfollow();
+    	if ($this->isFollowed($userId)) {
+    		return $this->unfollow($userId);
     	}
-    	return $this->follow();
+    	return $this->follow($userId);
     }
 
     public function followsCount()

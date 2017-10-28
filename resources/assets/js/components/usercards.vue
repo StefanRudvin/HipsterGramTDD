@@ -14,17 +14,7 @@
 import card from './Autonomous/card.vue';
 
 export default {
-    data(){
-        return {
-            posts: []
-        }
-    },
-
     props: [ 'posts' ],
-
-    mounted(){
-        this.isliked();
-    },
 
     methods: {
         fetchPosts(){
@@ -32,28 +22,6 @@ export default {
                 this.posts = response.data.posts;
             });
         },
-
-        isliked(){
-            axios.get('api/comments/' + this.thiscomment.id + '/isliked').then(response => {
-                this.liked = response.data.liked;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
-        like(){
-            axios.get('api/comments/' + this.thiscomment.id + '/like').then(response => {
-                this.thiscomment.score = response.data.score;
-                this.liked = response.data.liked;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        }
-
     },
 
 }

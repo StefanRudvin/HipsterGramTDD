@@ -26,15 +26,16 @@
                             </p>
 
                             <div class="pull-right">
-                                {{ thiscomment.score }}
+                                {{ comment.score }}
                             </div>
 
-                            <div v-if="liked">
-                                <div class="glyphicon glyphicon-heart"/></div>
-                                <div v-else>
-                                    <div class="glyphicon glyphicon-heart-empty"></div>
-                                </div>
+                            <div v-if="comment.liked">
+                                <div class="glyphicon glyphicon-heart"/>
                             </div>
+                            <div v-else>
+                                <div class="glyphicon glyphicon-heart-empty"></div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -49,18 +50,13 @@ export default {
 
     data(){
         return {
-            thiscomment: this.comment,
             errors: [],
             liked: false,
             show:true,
         }
     },
 
-    mounted(){
-        this.isliked();
-    },
-
-    props: [ 'comment' ],
+    props: [ 'comment', 'user' ],
 
     methods: {
 
@@ -68,20 +64,9 @@ export default {
             this.show = false;
         },
 
-        isliked(){
-            axios.get('/api/comments/' + this.comment.id + '/isliked').then(response => {
-                this.liked = response.data.liked;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
         like(){
-            axios.get('/api/comments/'+ this.comment.id + '/like').then(response => {
-                this.thiscomment.score = response.data.comment.score;
-                this.liked = response.data.comment.liked;
+            axios.post('/api/comments/'+ this.comment.id + '/toggleLike', {user_id: this.user.id}).then(response => {
+                this.comment = response.data.comment;
             })
             .then(response => {})
             .then()

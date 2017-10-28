@@ -3,19 +3,39 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
-use Illuminate\Support\Facades\Request;
+use App\Post;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CommentsApiController extends Controller
+class PostsCommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param Post    $post
+     * @param Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Post $post, Request $request)
     {
-        $comments = Comment::all();
+        $comments = $post->comments()->get();
+
+        $userId  = $request->get('user_id');
+
+        foreach( $comments as $comment ) {
+
+            $comment->owner = $comment->user->name;
+
+            $comment->time = $comment->created_at->diffforHumans();
+
+            $comment->score = $comment->likesCount();
+
+            $comment->liked = $comment->isLiked($userId);
+
+            $comment->img = $comment->user->avatar;
+            
+        }
 
         return response()->json([
                     'comments' => $comments
@@ -40,33 +60,31 @@ class CommentsApiController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'content' => 'required'
-        ]);
-        $comment = Comment::create([
-            'content' => $request->input('content'),
-            'user_id' => Auth::user()->id,
-        ]);
-        return response()->json([
-            'comment' => $comment
-        ]);
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param Post $post
+     * @param      $commentsid
+     *
      * @return \Illuminate\Http\Response
+     * @internal param Comment $comment
      */
-    public function show(Comment $comment)
+    public function show(Post $post, $commentsid)
     {
+        $comments = $post->comments()->get();
+
+        $comment = $comments[$commentsid - 1];
+
         $comment->owner = $comment->user->name;
 
         $comment->time = $comment->created_at->diffforHumans();
 
         $comment->score = $comment->likesCount();
 
-        $comment->img = $comment->user->avatar;
+        #$comment->img = $comment->user->avatar;
 
         return response()->json([
                     'comment' => $comment
@@ -105,25 +123,5 @@ class CommentsApiController extends Controller
     public function destroy(Comment $comment)
     {
         //
-    }
-
-    public function ToggleLike(Comment $comment)
-    {
-        $comment->toggleLike();
-        $comment->save();
-        $comment->score = $comment->likesCount();
-        $comment->liked = $comment->isLiked();
-        return response()->json([
-                            'comment' => $comment
-                        ]);
-    }
-
-
-    public function isLiked(Comment $comment)
-    {
-        $liked = $comment->isLiked();
-        return response()->json([
-                            'liked' => $liked
-                        ]);
     }
 }

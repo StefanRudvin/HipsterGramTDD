@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-use Auth;
 
 trait Likeability {
 
@@ -10,31 +9,34 @@ trait Likeability {
 		return $this->morphMany(Like::class , 'likeable');
 	}
 
-    public function like()
+    public function like(int $userId)
     {
-    	$like = new Like(['user_id' => Auth::id()]);
+    	$like = new Like(['user_id' => $userId]);
 
-    	$this->likes()->save($like);
+    	return $this->likes()->save($like);
     }
 
-    public function isLiked()
+    public function isLiked(int $userId)
     {
     	return !! $this->likes()
-    					->where('user_id', Auth::id())
+    					->where('user_id', $userId)
     					->count();
     }
 
-    public function unlike()
+    public function unlike(int $userId)
     {
-    	$this->likes()->where('user_id', Auth::id())->delete();
+    	return $this->likes()->where('user_id', $userId)->delete();
     }
 
-    public function toggleLike()
+    /**
+     * @param int|null $userId
+     */
+    public function toggleLike(int $userId)
     {
-    	if ($this->isLiked()) {
-    		return $this->unlike();
+    	if ($this->isLiked($userId)) {
+    		return $this->unlike($userId);
     	}
-    	return $this->like();
+    	return $this->like($userId);
     }
 
     public function likesCount()

@@ -17,16 +17,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('users', 'Api\UsersApiController');
-Route::resource('comments', 'Api\CommentsApiController');
-Route::resource('posts', 'Api\PostsApiController');
+Route::resource('users',    'Api\UsersController');
+Route::resource('comments', 'Api\CommentsController');
 
-Route::resource('posts.comments', 'Api\PostsCommentsApiController');
-Route::resource('users.posts', 'Api\UsersPostsApiController');
-Route::resource('users.comments', 'Api\UsersCommentsApiController');
+#Route::resource('posts',    'Api\PostsController');
 
-Route::get('/posts/{post}/like', 'Api\PostsApiController@ToggleLike');
-Route::get('/posts/{post}/isliked', 'Api\PostsApiController@isLiked');
+Route::post('/posts/{post}', 'Api\PostsController@show');
+Route::get('/posts/',        'Api\PostsController@index');
 
-Route::get('/comments/{comment}/like', 'Api\CommentsApiController@ToggleLike');
-Route::get('/comments/{comment}/isliked', 'Api\CommentsApiController@isLiked');
+Route::post('/users/{user}/toggleFollow', 'Api\UsersController@ToggleFollow');
+
+#Route::resource('posts.comments', 'Api\PostsCommentsController');
+#Route::resource('users.posts',    'Api\UsersPostsController');
+#Route::resource('users.comments', 'Api\UsersCommentsController');
+
+Route::post('/posts/{post}/comments', 'Api\PostsCommentsController@index');
+
+Route::post('/posts/{post}/toggleLike', 'Api\PostsController@ToggleLike');
+Route::post('/posts/{post}/isliked',    'Api\PostsController@isLiked');
+
+Route::post('/comments/{comment}/toggleLike', 'Api\CommentsController@ToggleLike');
+Route::post('/comments/{comment}/isliked',    'Api\CommentsController@isLiked');

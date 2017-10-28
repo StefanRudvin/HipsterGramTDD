@@ -7,7 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UsersCommentsApiController extends Controller
+class UsersCommentsController extends Controller
 {
     /**
      * Display a listing of the resource.

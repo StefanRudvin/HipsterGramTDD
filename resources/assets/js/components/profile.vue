@@ -17,21 +17,20 @@
                             <small>
                                <!-- Created by <a :href="'/users/' + thispost.user_id">{{ user.name }} </a> -->
                             </small>
-
                         </h3>       
                         <p>
                             <!-- {{ user.name }} -->
                         </p>
 
-                        <div v-if="followed">
-                        <button v-on:click="follow()" class="heart pull-left glyphicon glyphicon-heart"/>
+                        <div v-if="user.followed">
+                            <div v-on:click="follow()" class="heart pull-left glyphicon glyphicon-heart"/>
                         </div>
                         <div v-else>
-                            <button v-on:click="follow()" class="heart pull-left glyphicon glyphicon-heart-empty"/>
+                            <div v-on:click="follow()" class="heart pull-left glyphicon glyphicon-heart-empty"/>
                         </div>
 
                         <div class="pull-right">
-                            Followers: {{ thisuser.score }}
+                            Followers: {{ user.score }}
                         </div>
                         <br>
                     </div>
@@ -51,53 +50,14 @@ export default {
   data: () => ({
     errors: [],
     followed: false,
-    thisuser: ''
   }),
 
-    props: [ 'user'],
-
-    mounted(){
-        this.fetchUser();
-    },
+    props: ['user', 'auth'],
 
     methods: {
-
-        // getFollows(){
-        //     axios.get('/users/' + this.user.id + '/getFollows').then(response => {
-        //         this.thisuser.score = response.data.score;
-        //     })
-        //     .then(response => {})
-        //     .catch(e => {
-        //         this.errors.push(e)
-        // });
-        // },
-
-        fetchUser(){
-            axios.get('api/users/' + this.user.id).then(response => {
-                this.thisuser = response.data.user;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
-
-
-        isfollowed(){
-            axios.get('api/users/' + this.user.id + '/isfollowed').then(response => {
-                this.followed = response.data.followed;
-            })
-            .then(response => {})
-            .catch(e => {
-                this.errors.push(e)
-        });
-        },
-
         follow(){
-            axios.get('api/users/' + this.thisuser.id + '/follow').then(response => {
-                this.thisuser.score = response.data.user.score;
-                this.isfollowed();
+            axios.post('/api/users/' + this.user.id + '/toggleFollow', {user_id: this.auth.id}).then(response => {
+                this.user = response.data.user;
             })
             .then(response => {})
             .then()
