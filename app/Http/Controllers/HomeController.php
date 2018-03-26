@@ -30,6 +30,7 @@ class HomeController extends Controller
 
     public function changeVolume($volume = 100)
     {
+        echo ("amixer set Master " . $volume . "% --c 1");
         echo shell_exec("amixer set Master " . $volume . "% --c 1");
         return "Volume changed to " . $volume;
     }
