@@ -18,8 +18,11 @@ Route::resource('posts', 'PostsController');
 Route::resource('comments', 'CommentsController');
 Route::resource('users', 'UsersController');
 
-Route::get('/admin/', 'UsersController@admin');
+Route::get('/admin/', 'HomeController@admin');
 
+Route::get('/git-pull/', 'HomeController@gitPull');
+
+Route::get('/change-volume/{volume}', 'HomeController@changeVolume');
 
 // # Like & Follow routes
 

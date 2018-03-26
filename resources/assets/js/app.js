@@ -26,7 +26,13 @@ Vue.component('newpost', require('./components/newpost.vue'));
 Vue.component('card', require('./components/Autonomous/card.vue'));
 Vue.component('comment', require('./components/Autonomous/comment.vue'));
 
+Vue.component('adminpanel', require('./components/adminpanel.vue'));
+
 Vue.component('post', require('./components/post.vue'));
+
+import Notifications from 'vue-notification'
+
+Vue.use(Notifications)
 
 const app = new Vue({
     el: '#app',
