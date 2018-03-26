@@ -19,11 +19,12 @@ class PostsController extends Controller
 
         foreach ($posts as $post) {
             $post->userImg = $post->user->avatar;
-            $post->owner = $post->user->name;
-            $post->time = $post->created_at->diffforHumans();
-            $post->score = $post->likesCount();
-            $post->liked = $post->isLiked(Auth::user()->id);
+            $post->owner   = $post->user->name;
+            $post->time    = $post->created_at->diffforHumans();
+            $post->score   = $post->likesCount();
+            $post->liked   = $post->isLiked(Auth::user()->id);
         }
+
         return view('posts.index', compact('posts'));
     }
 
@@ -40,18 +41,20 @@ class PostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
@@ -62,7 +65,8 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
@@ -73,8 +77,9 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Post                $post
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Post $post)
@@ -85,7 +90,8 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)

@@ -43354,7 +43354,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             errors: [],
-            show: true
+            show: true,
+            reactiveComment: this.comment
         };
     },
 
@@ -43399,7 +43400,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "avatar",
     attrs: {
-      "src": '/uploads/avatars/' + _vm.comment.img
+      "src": '/uploads/avatars/' + _vm.reactiveComment.img
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "post-comments",
@@ -43412,13 +43413,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "meta"
   }, [_c('a', {
     attrs: {
-      "href": '/users/' + _vm.comment.user_id
+      "href": '/users/' + _vm.reactiveComment.user_id
     }
-  }, [_vm._v("\n                                    " + _vm._s(_vm.comment.owner) + "\n                                ")]), _vm._v("\n                                says :\n                                "), _c('i', {
+  }, [_vm._v("\n                                    " + _vm._s(_vm.reactiveComment.owner) + "\n                                ")]), _vm._v("\n                                says :\n                                "), _c('i', {
     staticClass: "pull-right"
-  }, [_c('small', [_vm._v("\n                                        " + _vm._s(_vm.comment.time) + "\n                                    ")])])]), _vm._v(" "), _c('p', [_vm._v("\n                                " + _vm._s(_vm.comment.content) + "\n                            ")]), _vm._v(" "), _c('div', {
+  }, [_c('small', [_vm._v("\n                                        " + _vm._s(_vm.reactiveComment.time) + "\n                                    ")])])]), _vm._v(" "), _c('p', [_vm._v("\n                                " + _vm._s(_vm.reactiveComment.content) + "\n                            ")]), _vm._v(" "), _c('div', {
     staticClass: "pull-right"
-  }, [_vm._v("\n                                " + _vm._s(_vm.comment.score) + "\n                            ")]), _vm._v(" "), (_vm.comment.liked) ? _c('div', [_c('div', {
+  }, [_vm._v("\n                                " + _vm._s(_vm.reactiveComment.score) + "\n                            ")]), _vm._v(" "), (_vm.reactiveComment.liked) ? _c('div', [_c('div', {
     staticClass: "glyphicon glyphicon-heart"
   })]) : _c('div', [_c('div', {
     staticClass: "glyphicon glyphicon-heart-empty"
@@ -43865,7 +43866,7 @@ if(false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 72 */
@@ -43924,18 +43925,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            title: 'YEAH',
-            content: 'YEAH',
-            image: 'default.jpg',
+            title: '',
+            content: '',
+            image: '',
             errors: []
         };
     },
@@ -43943,7 +43940,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         addPost: function addPost() {
-            axios.post('/posts/', {
+            console.log('adding post..');
+            axios.post('/api/posts/', {
                 title: this.title,
                 content: this.content,
                 image: this.image
@@ -44039,7 +44037,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "rows": "12",
+      "rows": "5",
       "required": "",
       "placeholder": "Post Content"
     },
@@ -44060,12 +44058,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     },
     on: {
-      "submit": function($event) {
-        $event.preventDefault();
+      "click": function($event) {
         _vm.addPost()
       }
     }
-  }, [_vm._v("\n            Submit\n            ")])]), _vm._v("\n\n        " + _vm._s(_vm.title) + "\n        " + _vm._s(_vm.content) + "\n\n    ")])])
+  }, [_vm._v("\n                Submit\n            ")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

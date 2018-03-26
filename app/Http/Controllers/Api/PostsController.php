@@ -52,8 +52,8 @@ class PostsController extends Controller
             ]);
 
         $post = new Post();
-        $post->title = $request->input('content');
-        $post->content = $request->input('title');
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
         $post->user_id = Auth::user()->id;
 
         # Image handling
@@ -63,6 +63,8 @@ class PostsController extends Controller
         // $post->image = $filename;
 
         $post->save();
+
+        return $post;
     }
 
     /**

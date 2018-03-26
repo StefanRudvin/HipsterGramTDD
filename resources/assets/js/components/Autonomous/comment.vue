@@ -6,30 +6,30 @@
                 <ul class="comments">
                     <li class="clearfix">
 
-                        <img v-bind:src="'/uploads/avatars/' + comment.img" class="avatar">
+                        <img v-bind:src="'/uploads/avatars/' + reactiveComment.img" class="avatar">
 
                         <div class="post-comments" v-on:click="like()">
                             <p class="meta">
-                                <a :href="'/users/' + comment.user_id">
-                                    {{ comment.owner }}
+                                <a :href="'/users/' + reactiveComment.user_id">
+                                    {{ reactiveComment.owner }}
                                 </a>
                                 says :
                                 <i class="pull-right">
                                     <small>
-                                        {{ comment.time}}
+                                        {{ reactiveComment.time}}
                                     </small>
                                 </i>
                             </p>
 
                             <p>
-                                {{ comment.content }}
+                                {{ reactiveComment.content }}
                             </p>
 
                             <div class="pull-right">
-                                {{ comment.score }}
+                                {{ reactiveComment.score }}
                             </div>
 
-                            <div v-if="comment.liked">
+                            <div v-if="reactiveComment.liked">
                                 <div class="glyphicon glyphicon-heart"/>
                             </div>
                             <div v-else>
@@ -52,6 +52,7 @@ export default {
         return {
             errors: [],
             show:true,
+            reactiveComment : this.comment
         }
     },
 

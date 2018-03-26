@@ -12,12 +12,14 @@
 */
 
 # Resource routes
+Route::get('/posts/new', 'PostsController@create');
 
 Route::resource('posts', 'PostsController');
 Route::resource('comments', 'CommentsController');
 Route::resource('users', 'UsersController');
 
-Route::get('/admin/',        'UsersController@admin');
+Route::get('/admin/', 'UsersController@admin');
+
 
 // # Like & Follow routes
 
