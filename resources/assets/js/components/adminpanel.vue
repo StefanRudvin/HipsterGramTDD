@@ -5,7 +5,6 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 col-md-offset-2 card">
                 <div class="card-block">
                     <h1>Admin</h1>
-
                     <button class="button" v-on:click="gitPull()">Git Pull</button>
                 </div>
             </div>
@@ -33,22 +32,6 @@
             del() {
                 this.show = false;
             },
-
-            gitPull(){
-                axios.get('/git-pull').then(response => {
-                    this.$notify({
-                        group: 'foo',
-                        title: response.data
-                    });
-
-                })
-                    .then(response => {})
-                    .then()
-                    .catch(e => {
-                        this.errors.push(e)
-                    });
-            }
-
         },
 
     }

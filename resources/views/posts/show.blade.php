@@ -2,15 +2,15 @@
 
 @section('content')
 
-<div id='app'>
-	<post :post="{{ $post }}"
-		  :user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}">
-	</post>
+    <div id='app'>
+        <post :post="{{ $post }}"
+              :user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}">
+        </post>
 
-	<comments :post="{{ $post }}"
-			  :user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}">
-	</comments>
+        <comments :post="{{ $post }}"
+                  :user="{{ json_encode(\Illuminate\Support\Facades\Auth::user()) }}">
+        </comments>
 
-</div>
+    </div>
 
 @endsection

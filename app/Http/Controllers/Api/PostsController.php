@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -48,20 +49,20 @@ class PostsController extends Controller
     {
         $this->validate($request, [
             'content' => 'required|min:1',
-            'title' => 'required|min:1'
+            'title' => 'required|min:1',
+            'image' => 'required'
             ]);
 
         $post = new Post();
-        $post->title = $request->input('title');
-        $post->content = $request->input('content');
-        $post->user_id = Auth::user()->id;
+        $post->title = $request->get('title');
+        $post->content = $request->get('content');
+        $post->user_id = $request->get('user_id');
 
         # Image handling
-        // $avatar = $request->file('image');
-        // $filename = time() . '.' . $avatar->getClientOriginalExtension();
-        // Image::make($avatar)->save( public_path('/uploads/images/' . $filename));
-        // $post->image = $filename;
-
+        $imageData = $request->get('image');
+        $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . explode('/', explode(':', substr($imageData, 0, strpos($imageData, ';')))[1])[1];
+        Image::make($request->get('image'))->save(public_path('uploads/images/').$fileName);
+        $post->image = $fileName;
         $post->save();
 
         return $post;

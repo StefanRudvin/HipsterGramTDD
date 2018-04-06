@@ -25,6 +25,8 @@ class HomeController extends Controller
     public function gitPull()
     {
         echo shell_exec("git pull");
+        $output = shell_exec('ls -lart');
+        echo "<pre>$output</pre>";
         return;
     }
 

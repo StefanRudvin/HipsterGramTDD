@@ -7,3 +7,17 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.new-comment-textbox {
+  border: 0;
+  width: 100%;
+  outline: none;
+}
+
+.white-button {
+  color: white !important;
+}
+
+.new-comment-button {
+  text-align: right;
+}

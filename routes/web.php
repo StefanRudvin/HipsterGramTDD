@@ -22,8 +22,6 @@ Route::get('/admin/', 'HomeController@admin');
 
 Route::get('/git-pull/', 'HomeController@gitPull');
 
-Route::get('/change-volume/{volume}', 'HomeController@changeVolume');
-
 // # Like & Follow routes
 
 // 	Route::get('/posts/{post}/like', 'PostsController@ToggleLike');

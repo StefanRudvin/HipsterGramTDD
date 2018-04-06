@@ -9,7 +9,7 @@ class Post extends Model
     use Likeability;
 
     protected $fillable = [
-        'title', 'content', 'score'
+        'title', 'content', 'score', 'image'
     ];
 
     public function user()

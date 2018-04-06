@@ -9,7 +9,7 @@ class Comment extends Model
     use Likeability;
 
     protected $fillable = [
-        'content'
+        'content', 'user_id', 'post_id'
     ];
 
     public function user()
